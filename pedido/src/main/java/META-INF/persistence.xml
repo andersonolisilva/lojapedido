@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="Conexao" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<non-jta-data-source>java:/loja</non-jta-data-source>
+		<non-jta-data-source>java:/pedido</non-jta-data-source>
 
 		<class>br.lojapedido.dominio.Cliente</class>
 
