@@ -23,19 +23,7 @@ public class ClienteService implements ICRUD<Cliente> {
 			clienteDAO.create(this.cliente);
 		} catch (Exception e) {
 			throw new RuntimeException(
-					"Revise a informação do cliente e tente novamente.");
-		}
-	}
-
-	private void validacaoDeCliente() {
-		if (!cpfDoClienteEhNumero()) {
-			throw new RuntimeException("CPF informado não é um número válido.");
-		}
-		if (!cpfDoClientePossui11Digitos()) {
-			throw new RuntimeException("CPF informado não possui 11 dígitos.");
-		}
-		if (!emailEhValido()) {
-			throw new RuntimeException("Email inválido.");
+					"Revise a informação do cliente e tente novamente: "+e.getMessage());
 		}
 	}
 
@@ -45,7 +33,7 @@ public class ClienteService implements ICRUD<Cliente> {
 			clienteDAO.update(this.cliente);
 		} catch (Exception e) {
 			throw new RuntimeException(
-					"Revise a informação do cliente e tente novamente.");
+					"Revise a informação do cliente e tente novamente: "+e.getMessage());
 		}
 	}
 
@@ -64,6 +52,18 @@ public class ClienteService implements ICRUD<Cliente> {
 
 	public List<Cliente> findAll() {
 		return clienteDAO.findAll();
+	}
+
+	private void validacaoDeCliente() {
+		if (!cpfDoClienteEhNumero()) {
+			throw new RuntimeException("CPF informado não é um número válido.");
+		}
+		if (!cpfDoClientePossui11Digitos()) {
+			throw new RuntimeException("CPF informado não possui 11 dígitos.");
+		}
+		if (!emailEhValido()) {
+			throw new RuntimeException("Email inválido.");
+		}
 	}
 
 	private boolean cpfDoClienteEhNumero() {

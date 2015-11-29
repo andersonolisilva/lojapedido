@@ -1,4 +1,4 @@
-package br.lojapedido.dominio;
+package br.lojapedido.servico;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,13 +10,15 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import br.lojapedido.dao.ClienteDAO;
+import br.lojapedido.dominio.Cliente;
+import br.lojapedido.dominio.Pedido;
 import br.lojapedido.servico.ClienteService;
 
 public class ClienteServiceTest {
 
 	@Test
 	public void deveSalvarCliente() {
-		Cliente cliente = new Cliente("Anderson Silva", "09098776543",
+		Cliente cliente = new Cliente("Anderson Silva", "12345678910",
 				"andersonolisilva@gmail.com");
 		ClienteDAO daoFalso = mock(ClienteDAO.class);
 		List<Cliente> listaDeClientes = Arrays.asList(cliente);
@@ -25,14 +27,15 @@ public class ClienteServiceTest {
 		service.create();
 		assertEquals(1, daoFalso.findAll().size());
 		assertEquals("Anderson Silva", daoFalso.findAll().get(0).getNome());
-		assertEquals("09098776543", daoFalso.findAll().get(0).getCPF());
+		assertEquals("12345678910", daoFalso.findAll().get(0).getCPF());
 		assertEquals("andersonolisilva@gmail.com", daoFalso.findAll().get(0)
 				.getEmail());
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void naoSalvaClienteComCPFAlfanumerico() {
-		Cliente cliente = new Cliente("Anderson Silva", "A0909876543",
+		// Classes de Equivalência e Valor Limite: Caso de teste 5
+		Cliente cliente = new Cliente("Anderson Silva", "ande1710@hotmail.com",
 				"andersonolisilva@gmail.com");
 		ClienteDAO daoFalso = mock(ClienteDAO.class);
 		ClienteService service = new ClienteService(daoFalso, cliente);
@@ -41,6 +44,7 @@ public class ClienteServiceTest {
 	
 	@Test(expected = RuntimeException.class)
 	public void naoSalvaClienteComCPFVazio(){
+		// Classes de Equivalência e Valor Limite: Caso de teste 15
 		Cliente cliente = new Cliente("Anderson Silva", "",
 				"andersonolisilva@gmail.com");
 		ClienteDAO daoFalso = mock(ClienteDAO.class);
@@ -50,7 +54,8 @@ public class ClienteServiceTest {
 	
 	@Test(expected = RuntimeException.class)
 	public void naoSalvaClienteComCPFComQuantidadeMenorQue11Digitos(){
-		Cliente cliente = new Cliente("Anderson Silva", "0987647589",
+		// Classes de Equivalência e Valor Limite: Caso de teste 4
+		Cliente cliente = new Cliente("Anderson Silva", "123",
 				"andersonolisilva@gmail.com");
 		ClienteDAO daoFalso = mock(ClienteDAO.class);
 		ClienteService service = new ClienteService(daoFalso, cliente);
@@ -59,7 +64,8 @@ public class ClienteServiceTest {
 	
 	@Test(expected = RuntimeException.class)
 	public void naoSalvaClienteComCPFComQuantidadeMaiorQue11Digitos(){
-		Cliente cliente = new Cliente("Anderson Silva", "098764758987",
+		// Classes de Equivalência e Valor Limite: Caso de teste 2
+		Cliente cliente = new Cliente("Anderson Silva", "123456789101",
 				"andersonolisilva@gmail.com");
 		ClienteDAO daoFalso = mock(ClienteDAO.class);
 		ClienteService service = new ClienteService(daoFalso, cliente);
@@ -68,6 +74,7 @@ public class ClienteServiceTest {
 	
 	@Test(expected = RuntimeException.class)
 	public void naoSalvaClienteComEmailInvalido(){
+		// Classes de Equivalência e Valor Limite: Caso de teste 6
 		Cliente cliente = new Cliente("Anderson Silva", "98764758987",
 				"andersonolisilva#gmail.com");
 		ClienteDAO daoFalso = mock(ClienteDAO.class);
@@ -93,6 +100,7 @@ public class ClienteServiceTest {
 	
 	@Test(expected = RuntimeException.class)
 	public void naoAtualizarClienteComEmailInvalido() {
+		// Classes de Equivalência e Valor Limite: Caso de teste 6
 		Cliente cliente = new Cliente("Anderson Silva", "09098776543",
 				"andersonolisilva#gmail.com");
 		ClienteDAO daoFalso = mock(ClienteDAO.class);

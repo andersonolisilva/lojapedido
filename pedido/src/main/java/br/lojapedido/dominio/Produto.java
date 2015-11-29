@@ -1,12 +1,15 @@
 package br.lojapedido.dominio;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import br.lojapedido.dao.PersistDB;
@@ -22,7 +25,18 @@ public class Produto implements PersistDB{
 	private String descricao;
 	private BigDecimal valor;
 	private BigDecimal quantidadeEstoque;
+	@OneToMany(mappedBy="produto")
+	private List<PedidoItem> pedidosDoProduto = new ArrayList<PedidoItem>();
 	
+	public Produto(){}
+	
+	public Produto(String descricao, BigDecimal valor, BigDecimal quantidadeEstoque,
+			ArrayList<PedidoItem> pedidosDoProduto) {
+		this.setDescricao(descricao);
+		this.setValor(valor);
+		this.setQuantidadeEstoque(quantidadeEstoque);
+		this.setPedidosDoProduto(pedidosDoProduto);
+	}
 	public int getId() {
 		return id;
 	}
@@ -46,6 +60,12 @@ public class Produto implements PersistDB{
 	}
 	public void setQuantidadeEstoque(BigDecimal quantidadeEstoque) {
 		this.quantidadeEstoque = quantidadeEstoque;
+	}
+	public List<PedidoItem> getPedidosDoProduto() {
+		return pedidosDoProduto;
+	}
+	public void setPedidosDoProduto(List<PedidoItem> pedidosDoProduto) {
+		this.pedidosDoProduto = pedidosDoProduto;
 	}
 	@Override
 	public int hashCode() {
@@ -88,8 +108,5 @@ public class Produto implements PersistDB{
 		} else if (!valor.equals(other.valor))
 			return false;
 		return true;
-	}
-	
-	
-	
+	}	
 }

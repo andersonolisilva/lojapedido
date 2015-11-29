@@ -31,9 +31,9 @@ public class Cliente implements PersistDB{
 	public Cliente(){}
 	
 	public Cliente(String nome, String cpf, String email) {
-		this.nome = nome;
-		this.CPF = cpf;
-		this.email = email;
+		this.setNome(nome);
+		this.setCPF(cpf);
+		this.setEmail(email);
 	}
 	public int getId() {
 		return id;
