@@ -1,5 +1,6 @@
 package br.lojapedido.dominio;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -100,15 +101,56 @@ public class ClienteServiceTest {
 	}
 	
 	@Test
-	public void deveExcluirCliente() {
-		Cliente cliente = new Cliente("Anderson Silva", "09098776543",
-				"andersonolisilva@gmail.com");
+	public void deveExcluirClienteSemPedido() {
 		ClienteDAO daoFalso = mock(ClienteDAO.class);
-		List<Cliente> listaDeClientes = Arrays.asList(cliente);
-		when(daoFalso.findAll()).thenReturn(listaDeClientes);
-		ClienteService service = new ClienteService(daoFalso, cliente);
+		Cliente clienteFalso = mock(Cliente.class);
+		List<Pedido> listaDePedidos = new ArrayList<Pedido>();
+		when(clienteFalso.getPedidosDoCliente()).thenReturn(listaDePedidos);
+		ClienteService service = new ClienteService(daoFalso, clienteFalso);
 		service.delete();
-		assertEquals(0, daoFalso.findAll().size());
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void naoDeveExcluirClienteComPedido() {
+		ClienteDAO daoFalso = mock(ClienteDAO.class);
+		Cliente clienteFalso = mock(Cliente.class);
+		Pedido pedido = new Pedido();
+		pedido.setCliente(clienteFalso);		
+		List<Pedido> listaDePedidos = new ArrayList<Pedido>();
+		listaDePedidos.add(pedido);
+		when(clienteFalso.getPedidosDoCliente()).thenReturn(listaDePedidos);
+		ClienteService service = new ClienteService(daoFalso, clienteFalso);
+		service.delete();
+	}
+
+	@Test
+	public void devePesquisarClientePorID(){
+		ClienteDAO daoFalso = mock(ClienteDAO.class);
+		Cliente cliente = new Cliente();
+		cliente.setId(1);
+		cliente.setNome("Anderson Silva");
+		cliente.setCPF("09876787652");
+		cliente.setEmail("andersonolisilva@gmail.com");
+		when(daoFalso.findByPrimaryKey(1)).thenReturn(cliente);
+		ClienteService service = new ClienteService(daoFalso, cliente);
+		
+		assertEquals(1, service.findByPrimaryKey(1).getId());	
+	}
+	
+	@Test
+	public void devePesquisarTodosOsClientes(){
+		Cliente cliente1 = new Cliente("Anderson Silva", "09098776543",
+				"andersonolisilva@gmail.com");
+		Cliente cliente2 = new Cliente("Daniel Olinto", "09098776543",
+				"danielolinto31@gmail.com");
+		
+		List<Cliente> listaDeClientes = Arrays.asList(cliente1, cliente2);
+		
+		ClienteDAO daoFalso = mock(ClienteDAO.class);
+		when(daoFalso.findAll()).thenReturn(listaDeClientes);
+		ClienteService service = new ClienteService(daoFalso, cliente1);
+		
+		assertEquals(2, service.findAll().size());	
 	}
 
 }

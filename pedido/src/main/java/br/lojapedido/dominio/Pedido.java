@@ -78,6 +78,65 @@ public class Pedido implements PersistDB{
 	public void setItensDoPedido(List<PedidoItem> itensDoPedido) {
 		this.itensDoPedido = itensDoPedido;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
+		result = prime * result
+				+ ((dataPedido == null) ? 0 : dataPedido.hashCode());
+		result = prime * result
+				+ ((desconto == null) ? 0 : desconto.hashCode());
+		result = prime * result + id;
+		result = prime * result
+				+ ((itensDoPedido == null) ? 0 : itensDoPedido.hashCode());
+		result = prime * result
+				+ ((situacaoPedido == null) ? 0 : situacaoPedido.hashCode());
+		result = prime * result
+				+ ((valorPedido == null) ? 0 : valorPedido.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pedido other = (Pedido) obj;
+		if (cliente == null) {
+			if (other.cliente != null)
+				return false;
+		} else if (!cliente.equals(other.cliente))
+			return false;
+		if (dataPedido == null) {
+			if (other.dataPedido != null)
+				return false;
+		} else if (!dataPedido.equals(other.dataPedido))
+			return false;
+		if (desconto == null) {
+			if (other.desconto != null)
+				return false;
+		} else if (!desconto.equals(other.desconto))
+			return false;
+		if (id != other.id)
+			return false;
+		if (itensDoPedido == null) {
+			if (other.itensDoPedido != null)
+				return false;
+		} else if (!itensDoPedido.equals(other.itensDoPedido))
+			return false;
+		if (situacaoPedido != other.situacaoPedido)
+			return false;
+		if (valorPedido == null) {
+			if (other.valorPedido != null)
+				return false;
+		} else if (!valorPedido.equals(other.valorPedido))
+			return false;
+		return true;
+	}
+	
 	
 	
 }

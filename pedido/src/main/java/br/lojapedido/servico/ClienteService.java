@@ -54,7 +54,7 @@ public class ClienteService implements ICRUD<Cliente> {
 			validacaoParaExclusaoDeCliente();
 			clienteDAO.delete(this.cliente);
 		} catch (Exception e) {
-			throw new RuntimeException("Exclusão não permitida.");
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 

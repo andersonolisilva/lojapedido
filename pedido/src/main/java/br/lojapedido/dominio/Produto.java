@@ -47,6 +47,49 @@ public class Produto implements PersistDB{
 	public void setQuantidadeEstoque(BigDecimal quantidadeEstoque) {
 		this.quantidadeEstoque = quantidadeEstoque;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + id;
+		result = prime
+				* result
+				+ ((quantidadeEstoque == null) ? 0 : quantidadeEstoque
+						.hashCode());
+		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (descricao == null) {
+			if (other.descricao != null)
+				return false;
+		} else if (!descricao.equals(other.descricao))
+			return false;
+		if (id != other.id)
+			return false;
+		if (quantidadeEstoque == null) {
+			if (other.quantidadeEstoque != null)
+				return false;
+		} else if (!quantidadeEstoque.equals(other.quantidadeEstoque))
+			return false;
+		if (valor == null) {
+			if (other.valor != null)
+				return false;
+		} else if (!valor.equals(other.valor))
+			return false;
+		return true;
+	}
+	
 	
 	
 }
