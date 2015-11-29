@@ -1,6 +1,7 @@
 package br.lojapedido.dominio;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,19 @@ public class Pedido implements PersistDB{
 	
 	@OneToMany(mappedBy="pedido")
 	private List<PedidoItem> itensDoPedido;
+	
+	public Pedido(){}
+	
+	public Pedido(SituacaoPedido aberto, Date data, Cliente cliente,
+			BigDecimal desconto, BigDecimal valorPedido,
+			ArrayList<PedidoItem> pedidoItem) {
+		this.setSituacaoPedido(aberto);
+		this.setDataPedido(data);
+		this.setCliente(cliente);
+		this.setDesconto(desconto);
+		this.setValorPedido(valorPedido);
+		this.setItensDoPedido(pedidoItem);
+	}
 	
 	public int getId() {
 		return id;
