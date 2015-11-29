@@ -1,5 +1,5 @@
 <% 
 
-response.sendRedirect("faces/admin/principal.xhtml");
+response.sendRedirect("admin/principal.xhtml");
 
 %>

@@ -8,6 +8,9 @@
 		<non-jta-data-source>java:/pedido</non-jta-data-source>
 
 		<class>br.lojapedido.dominio.Cliente</class>
+		<class>br.lojapedido.dominio.Pedido</class>
+		<class>br.lojapedido.dominio.Produto</class>
+		<class>br.lojapedido.dominio.PedidoItem</class>
 
 
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
