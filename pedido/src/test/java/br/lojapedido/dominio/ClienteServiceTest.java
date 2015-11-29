@@ -98,5 +98,17 @@ public class ClienteServiceTest {
 		ClienteService service = new ClienteService(daoFalso, cliente);
 		service.update();
 	}
+	
+	@Test
+	public void deveExcluirCliente() {
+		Cliente cliente = new Cliente("Anderson Silva", "09098776543",
+				"andersonolisilva@gmail.com");
+		ClienteDAO daoFalso = mock(ClienteDAO.class);
+		List<Cliente> listaDeClientes = Arrays.asList(cliente);
+		when(daoFalso.findAll()).thenReturn(listaDeClientes);
+		ClienteService service = new ClienteService(daoFalso, cliente);
+		service.delete();
+		assertEquals(0, daoFalso.findAll().size());
+	}
 
 }

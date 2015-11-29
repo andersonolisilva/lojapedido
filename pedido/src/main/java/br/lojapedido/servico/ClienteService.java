@@ -54,7 +54,7 @@ public class ClienteService implements ICRUD<Cliente> {
 			validacaoParaExclusaoDeCliente();
 			clienteDAO.delete(this.cliente);
 		} catch (Exception e) {
-			throw new RuntimeException("");
+			throw new RuntimeException("Exclusão não permitida.");
 		}
 	}
 
@@ -92,6 +92,12 @@ public class ClienteService implements ICRUD<Cliente> {
 	}
 	
 	private void validacaoParaExclusaoDeCliente(){
-		
+		if (clienteComPedido()){
+			throw new RuntimeException("Não é possível excluir cliente com pedido.");
+		}
+	}
+	
+	private boolean clienteComPedido(){
+		return this.cliente.getPedidosDoCliente().size()>0;
 	}
 }

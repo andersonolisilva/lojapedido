@@ -57,6 +57,14 @@ public class Cliente implements PersistDB{
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}	
-	
+	}
+
+	public List<Pedido> getPedidosDoCliente() {
+		return pedidosDoCliente;
+	}
+
+	public void setPedidosDoCliente(List<Pedido> pedidosDoCliente) {
+		this.pedidosDoCliente = pedidosDoCliente;
+	}
+		
 }
