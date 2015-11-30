@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="subheader">
+        Pedido
+    </ui:define>
+    
+    <ui:define name="content">
+        
+        <div class="Container100">
+        
+        	<div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                	<div class="Container100">
+                        <h2 class="BigTopic">Cadastro</h2>
+                        <p:separator styleClass="SeparatorFull" />
+                        <div class="EmptyBox10"></div>
+	                    <div class="Container20 Responsive100">
+            				<h:outputLabel for="situacaoPedido" value="Situação:" styleClass="DispBlock FontBold" />
+					        <p:selectOneMenu id="situacaoPedido">
+					            <f:selectItem itemLabel="Selecione" itemValue="" />
+            					<f:selectItems value="" />
+					        </p:selectOneMenu>
+	                    </div>
+	                    <div class="Container20 Responsive100">
+            				<h:outputLabel for="data" value="Data:" styleClass="DispBlock FontBold" />
+        					<p:calendar id="data" />
+						</div>
+						<div class="Container20 Responsive100">
+            				<h:outputLabel for="cliente" value="Cliente:" styleClass="DispBlock FontBold" />
+					        <p:selectOneMenu id="cliente">
+					            <f:selectItem itemLabel="Selecione" itemValue="" />
+            					<f:selectItems value="" />
+					        </p:selectOneMenu>
+	                    </div>
+	                    <div class="Container20 Responsive100">
+	                    	<h:outputLabel for="desconto" value="Desconto:" styleClass="DispBlock FontBold" />
+            				<p:inputText id="desconto" />
+	                    </div>
+	                    <div class="Container20 Responsive100">
+	                    	<h:outputLabel for="valorPedido" value="Valor do Pedido:" styleClass="DispBlock FontBold" />
+            				<p:inputText id="valorPedido" />
+	                    </div>
+	                    <div class="EmptyBox20"></div>
+	                    <div class="Container100 TexAlCenter">
+	                    	<p:commandButton value="Salvar" id="salvar" update="form" styleClass="GreenButton" />
+	                    </div>
+					</div>
+                </div>
+            </div>
+        
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                	<div class="Container100">
+                        <h2 class="BigTopic">Lista</h2>
+                        <p:separator styleClass="SeparatorFull" />
+                        <div class="EmptyBox10"></div>
+	                    <h:form id="form">
+							<p:dataTable id="singleDT" var="cliente" value="#{cliente}" paginatorPosition="bottom"
+							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum cliente cadastrado" reflow="true"
+							             currentPageReportTemplate="{currentPage} de {totalPages}">
+							
+							    <p:column headerText="ID" sortBy="#{pedido.id}" styleClass="Wid10">
+							        <h:outputText value="#{pedido.id}" />
+							    </p:column>
+							    <p:column headerText="Situação" sortBy="#{pedido.situacaoPedido}" styleClass="Wid20">
+							        <h:outputText value="#{pedido.situacaoPedido}" />
+							    </p:column>
+							    <p:column headerText="Data" sortBy="#{pedido.dataPedido}" styleClass="Wid20">
+							        <h:outputText value="#{pedido.dataPedido}" />
+							    </p:column>
+							    <p:column headerText="Cliente" sortBy="#{pedido.cliente.nome}">
+							        <h:outputText value="#{pedido.cliente.nome}" />
+							    </p:column>
+							    <p:column headerText="Desconto" sortBy="#{pedido.desconto}" styleClass="Wid10">
+							        <h:outputText value="#{pedido.desconto}" />
+							    </p:column>
+							    <p:column headerText="Valor" sortBy="#{pedido.valorPedido}" styleClass="Wid10">
+							        <h:outputText value="#{pedido.valorPedido}" />
+							    </p:column>
+							</p:dataTable>
+						</h:form>
+					</div>
+                </div>
+            </div>
+        </div>
+        
+    </ui:define>
+
+</ui:composition>

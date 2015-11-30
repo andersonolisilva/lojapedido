@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="subheader">
+        Produto
+    </ui:define>
+    
+    <ui:define name="content">
+        
+        <div class="Container100">
+        
+        	<div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                	<div class="Container100">
+                        <h2 class="BigTopic">Cadastro</h2>
+                        <p:separator styleClass="SeparatorFull" />
+                        <div class="EmptyBox10"></div>
+	                    <div class="Container50 Responsive100">
+	                    	<h:outputLabel for="descricao" value="Descrição:" styleClass="DispBlock FontBold" />
+            				<p:inputText id="descricao" styleClass="Wid95" />
+	                    </div>
+	                    <div class="Container25 Responsive100">
+							<h:outputLabel for="valor" value="Valor:" styleClass="DispBlock FontBold" />
+            				<p:inputText id="valor" styleClass="Wid95" />
+						</div>
+	                    <div class="Container25 Responsive100">
+	                    	<h:outputLabel for="Quantidade" value="Quantidade:" styleClass="DispBlock FontBold" />
+            				<p:inputText id="Quantidade" styleClass="Wid95" />
+	                    </div>
+	                    <div class="EmptyBox20"></div>
+	                    <div class="Container100 TexAlCenter">
+	                    	<p:commandButton value="Salvar" id="salvar" update="form" styleClass="GreenButton" />
+	                    </div>
+					</div>
+                </div>
+            </div>
+        
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                	<div class="Container100">
+                        <h2 class="BigTopic">Lista</h2>
+                        <p:separator styleClass="SeparatorFull" />
+                        <div class="EmptyBox10"></div>
+	                    <h:form id="form">
+							<p:dataTable id="singleDT" var="produto" value="#{produto}" paginatorPosition="bottom"
+							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum produto cadastrado" reflow="true"
+							             currentPageReportTemplate="{currentPage} de {totalPages}">
+							
+							    <p:column headerText="ID" sortBy="#{produto.id}" styleClass="Wid10">
+							        <h:outputText value="#{produto.id}" />
+							    </p:column>
+							    <p:column headerText="Descrição" sortBy="#{produto.descricao}">
+							        <h:outputText value="#{produto.descricao}" />
+							    </p:column>
+							    <p:column headerText="Valor" sortBy="#{produto.valor}" styleClass="Wid20">
+							        <h:outputText value="#{produto.valor}" />
+							    </p:column>
+							    <p:column headerText="Quantidade" sortBy="#{produto.quantidadeEstoque}" styleClass="Wid20">
+							        <h:outputText value="#{produto.quantidadeEstoque}" />
+							    </p:column>
+							</p:dataTable>
+						</h:form>
+					</div>
+                </div>
+            </div>
+        </div>
+        
+    </ui:define>
+
+</ui:composition>
