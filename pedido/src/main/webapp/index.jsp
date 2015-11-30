@@ -1,5 +1,5 @@
 <% 
 
-response.sendRedirect("admin/principal.xhtml");
+response.sendRedirect("login.xhtml");
 
 %>
