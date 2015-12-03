@@ -6,11 +6,13 @@ import javax.faces.bean.ManagedBean;
 
 import br.lojapedido.dao.ProdutoDAO;
 import br.lojapedido.dominio.Produto;
+import br.lojapedido.servico.ProdutoService;
 
 @ManagedBean
 public class ProdutoMBean extends AbstractController<Produto> {
 	
 	private Produto produto = new Produto();
+	private ProdutoService service;
 	
 	public List<Produto> getListaCompleta() {
 		ProdutoDAO dao = new ProdutoDAO();
@@ -23,12 +25,13 @@ public class ProdutoMBean extends AbstractController<Produto> {
 	
 	public String salvar() {
 		ProdutoDAO dao = new ProdutoDAO();
+		service = new ProdutoService(dao, produto);
 		
 		try {
 			if (produto.getId() == 0) {
-				dao.create(produto);
+				service.create();
 			} else {
-				dao.update(produto);
+				service.update();
 			}
 			
 			produto = new Produto();
@@ -48,8 +51,10 @@ public class ProdutoMBean extends AbstractController<Produto> {
 	
 	public String deletar(Produto produto) {
 		ProdutoDAO dao = new ProdutoDAO();
+		service = new ProdutoService(dao, produto);
+		
 		try {
-			dao.delete(produto);
+			service.delete();
 			addSuccess("Produto excluído com sucesso");
 		} finally {
 			dao.close();
