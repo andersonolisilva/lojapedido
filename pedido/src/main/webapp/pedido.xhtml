@@ -16,39 +16,47 @@
         	<div class="ContainerIndent">
                 <div class="Card ShadowEffect">
                 	<div class="Container100">
-                        <h2 class="BigTopic">Cadastro</h2>
-                        <p:separator styleClass="SeparatorFull" />
-                        <div class="EmptyBox10"></div>
-	                    <div class="Container20 Responsive100">
-            				<h:outputLabel for="situacaoPedido" value="Situação:" styleClass="DispBlock FontBold" />
-					        <p:selectOneMenu id="situacaoPedido">
-					            <f:selectItem itemLabel="Selecione" itemValue="" />
-            					<f:selectItems value="" />
-					        </p:selectOneMenu>
-	                    </div>
-	                    <div class="Container20 Responsive100">
-            				<h:outputLabel for="data" value="Data:" styleClass="DispBlock FontBold" />
-        					<p:calendar id="data" />
-						</div>
-						<div class="Container20 Responsive100">
-            				<h:outputLabel for="cliente" value="Cliente:" styleClass="DispBlock FontBold" />
-					        <p:selectOneMenu id="cliente">
-					            <f:selectItem itemLabel="Selecione" itemValue="" />
-            					<f:selectItems value="" />
-					        </p:selectOneMenu>
-	                    </div>
-	                    <div class="Container20 Responsive100">
-	                    	<h:outputLabel for="desconto" value="Desconto:" styleClass="DispBlock FontBold" />
-            				<p:inputText id="desconto" />
-	                    </div>
-	                    <div class="Container20 Responsive100">
-	                    	<h:outputLabel for="valorPedido" value="Valor do Pedido:" styleClass="DispBlock FontBold" />
-            				<p:inputText id="valorPedido" />
-	                    </div>
-	                    <div class="EmptyBox20"></div>
-	                    <div class="Container100 TexAlCenter">
-	                    	<p:commandButton value="Salvar" id="salvar" update="form" styleClass="GreenButton" />
-	                    </div>
+                		<h:form>
+                			<h:inputHidden value="#{pedidoMBean.pedido.id}" />
+                			<p:growl />
+	                        <h2 class="BigTopic">Cadastro</h2>
+	                        <p:separator styleClass="SeparatorFull" />
+	                        <div class="EmptyBox10"></div>
+		                    <div class="Container20 Responsive100">
+	            				<h:outputLabel for="situacaoPedido" value="Situação:" styleClass="DispBlock FontBold" />
+						        <p:selectOneMenu id="situacaoPedido" value="#{pedidoMBean.pedido.situacaoPedido}">
+						            <f:selectItem itemLabel="Selecione" itemValue="" />
+	            					<f:selectItems value="" />
+						        </p:selectOneMenu>
+		                    </div>
+		                    <div class="Container20 Responsive100">
+	            				<h:outputLabel for="data" value="Data:" styleClass="DispBlock FontBold" />
+	        					<p:calendar id="data" value="#{pedidoMBean.pedido.dataPedido}"
+	        						required="true" requiredMessage="Campo data é obrigatório" />
+							</div>
+		                    <div class="Container20 Responsive100">
+	            				<h:outputLabel for="cliente" value="Cliente:" styleClass="DispBlock FontBold" />
+						        <p:selectOneMenu id="cliente" value="#{pedidoMBean.pedido.cliente}">
+						            <f:selectItem itemLabel="Selecione" />
+	            					<f:selectItems value="#{clienteMBean.listaCompleta}" var="c" itemValue="#{c.id}" itemLabel="#{c.nome}" />
+						        </p:selectOneMenu>
+		                    </div>
+		                    <div class="Container20 Responsive100">
+		                    	<h:outputLabel for="desconto" value="Desconto:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="desconto" value="#{pedidoMBean.pedido.desconto}"
+	            					required="true" requiredMessage="Campo desconto é obrigatório" />
+		                    </div>
+		                    <div class="Container20 Responsive100">
+		                    	<h:outputLabel for="valorPedido" value="Valor do Pedido:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="valorPedido" value="#{pedidoMBean.pedido.valorPedido}"
+	            					required="true" requiredMessage="Campo valor do pedido é obrigatório" />
+		                    </div>
+		                    <div class="EmptyBox20"></div>
+		                    <div class="Container100 TexAlCenter">
+		                    	<p:commandButton value="Salvar" id="salvar" update="@form" ajax="false"
+		                    		action="#{pedidoMBean.salvar}" styleClass="GreenButton" icon="fa fa-save" />
+		                    </div>
+		            	</h:form>
 					</div>
                 </div>
             </div>
@@ -60,28 +68,34 @@
                         <p:separator styleClass="SeparatorFull" />
                         <div class="EmptyBox10"></div>
 	                    <h:form id="form">
-							<p:dataTable id="singleDT" var="cliente" value="#{cliente}" paginatorPosition="bottom"
+							<p:dataTable id="singleDT" var="pedido" value="#{pedidoMBean.listaCompleta}" paginatorPosition="bottom"
 							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum cliente cadastrado" reflow="true"
+							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum pedido cadastrado" reflow="true"
 							             currentPageReportTemplate="{currentPage} de {totalPages}">
 							
-							    <p:column headerText="ID" sortBy="#{pedido.id}" styleClass="Wid10">
+							    <p:column headerText="ID" styleClass="Wid10">
 							        <h:outputText value="#{pedido.id}" />
 							    </p:column>
-							    <p:column headerText="Situação" sortBy="#{pedido.situacaoPedido}" styleClass="Wid20">
+							    <p:column headerText="Situação" styleClass="Wid20">
 							        <h:outputText value="#{pedido.situacaoPedido}" />
 							    </p:column>
-							    <p:column headerText="Data" sortBy="#{pedido.dataPedido}" styleClass="Wid20">
+							    <p:column headerText="Data" styleClass="Wid20">
 							        <h:outputText value="#{pedido.dataPedido}" />
 							    </p:column>
-							    <p:column headerText="Cliente" sortBy="#{pedido.cliente.nome}">
+							    <p:column headerText="Cliente">
 							        <h:outputText value="#{pedido.cliente.nome}" />
 							    </p:column>
-							    <p:column headerText="Desconto" sortBy="#{pedido.desconto}" styleClass="Wid10">
+							    <p:column headerText="Desconto" styleClass="Wid10">
 							        <h:outputText value="#{pedido.desconto}" />
 							    </p:column>
-							    <p:column headerText="Valor" sortBy="#{pedido.valorPedido}" styleClass="Wid10">
+							    <p:column headerText="Valor" styleClass="Wid10">
 							        <h:outputText value="#{pedido.valorPedido}" />
+							    </p:column>
+							    <p:column headerText="Ações" styleClass="TexAlCenter">
+							        <p:commandButton action="#{pedidoMBean.selecionar(pedido)}" update="@form" 
+							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" />
+							        <p:commandButton action="#{pedidoMBean.deletar(pedido)}" onclick="return confirm('Deseja realmente deletar?')"
+							        	update="@form" ajax="false" icon="fa fa-trash Fs16 White" styleClass="RedButton" />
 							    </p:column>
 							</p:dataTable>
 						</h:form>

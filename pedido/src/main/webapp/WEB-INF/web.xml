@@ -78,6 +78,6 @@
   <mime-type>image/svg+xml</mime-type>
  </mime-mapping>
  <welcome-file-list>
-  <welcome-file>cliente.xhtml</welcome-file>
+  <welcome-file>index.jsp</welcome-file>
  </welcome-file-list>
 </web-app>

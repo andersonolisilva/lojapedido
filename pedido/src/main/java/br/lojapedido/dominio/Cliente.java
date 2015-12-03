@@ -50,8 +50,8 @@ public class Cliente implements PersistDB{
 	public String getCPF() {
 		return CPF;
 	}
-	public void setCPF(String cPF) {
-		CPF = cPF;
+	public void setCPF(String CPF) {
+		CPF = CPF;
 	}
 	public String getEmail() {
 		return email;

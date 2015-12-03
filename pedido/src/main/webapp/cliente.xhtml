@@ -16,25 +16,33 @@
         	<div class="ContainerIndent">
                 <div class="Card ShadowEffect">
                 	<div class="Container100">
-                        <h2 class="BigTopic">Cadastro</h2>
-                        <p:separator styleClass="SeparatorFull" />
-                        <div class="EmptyBox10"></div>
-	                    <div class="Container33 Responsive100">
-	                    	<h:outputLabel for="cpf" value="CPF:" styleClass="DispBlock FontBold" />
-            				<p:inputText id="cpf" styleClass="Wid95" />
-	                    </div>
-	                    <div class="Container33 Responsive100">
-							<h:outputLabel for="nome" value="Nome:" styleClass="DispBlock FontBold" />
-            				<p:inputText id="nome" styleClass="Wid95" />
-						</div>
-	                    <div class="Container33 Responsive100">
-	                    	<h:outputLabel for="email" value="E-mail:" styleClass="DispBlock FontBold" />
-            				<p:inputText id="email" styleClass="Wid95" />
-	                    </div>
-	                    <div class="EmptyBox20"></div>
-	                    <div class="Container100 TexAlCenter">
-	                    	<p:commandButton value="Salvar" id="salvar" update="form" styleClass="GreenButton" />
-	                    </div>
+                		<h:form>
+                			<p:growl />
+                			<h:inputHidden value="#{clienteMBean.cliente.id}" />
+	                        <h2 class="BigTopic">Cadastro</h2>
+	                        <p:separator styleClass="SeparatorFull" />
+	                        <div class="EmptyBox10"></div>
+		                    <div class="Container33 Responsive100">
+		                    	<h:outputLabel for="cpf" value="CPF:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="cpf" styleClass="Wid90" value="#{clienteMBean.cliente.CPF}"
+	            					required="true" requiredMessage="Campo CPF é obrigatório"/>
+		                    </div>
+		                    <div class="Container33 Responsive100">
+								<h:outputLabel for="nome" value="Nome:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="nome" styleClass="Wid90" value="#{clienteMBean.cliente.nome}"
+									required="true" requiredMessage="Campo nome é obrigatório"/>
+							</div>
+		                    <div class="Container33 Responsive100">
+		                    	<h:outputLabel for="email" value="E-mail:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="email" styleClass="Wid90" value="#{clienteMBean.cliente.email}"
+	            					required="true" requiredMessage="Campo e-mail é obrigatório"/>
+		                    </div>
+		                    <div class="EmptyBox20"></div>
+		                    <div class="Container100 TexAlCenter">
+		                    	<p:commandButton value="Salvar" id="salvar" update="@form" ajax="false"
+		                    		action="#{clienteMBean.salvar}" styleClass="GreenButton" icon="fa fa-save" />
+		                    </div>
+		            	</h:form>
 					</div>
                 </div>
             </div>
@@ -46,19 +54,25 @@
                         <p:separator styleClass="SeparatorFull" />
                         <div class="EmptyBox10"></div>
 	                    <h:form id="form">
-							<p:dataTable id="singleDT" var="cliente" value="#{cliente}" paginatorPosition="bottom"
+							<p:dataTable id="singleDT" var="cliente" value="#{clienteMBean.listaCompleta}" paginatorPosition="bottom"
 							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum cliente cadastrado" reflow="true"
 							             currentPageReportTemplate="{currentPage} de {totalPages}">
 							
-							    <p:column headerText="CPF" sortBy="#{cliente.cpf}">
-							        <h:outputText value="#{cliente.cpf}" />
+							    <p:column headerText="CPF">
+							        <h:outputText value="#{cliente.CPF}" />
 							    </p:column>
-							    <p:column headerText="Nome" sortBy="#{cliente.nome}">
+							    <p:column headerText="Nome">
 							        <h:outputText value="#{cliente.nome}" />
 							    </p:column>
-							    <p:column headerText="E-mail" sortBy="#{cliente.email}">
+							    <p:column headerText="E-mail">
 							        <h:outputText value="#{cliente.email}" />
+							    </p:column>
+							    <p:column headerText="Ações" styleClass="TexAlCenter">
+							        <p:commandButton action="#{clienteMBean.selecionar(cliente)}" update="@form" 
+							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" />
+							        <p:commandButton action="#{clienteMBean.deletar(cliente)}" onclick="return confirm('Deseja realmente deletar?')"
+							        	update="@form" ajax="false" icon="fa fa-trash Fs16 White" styleClass="RedButton" />
 							    </p:column>
 							</p:dataTable>
 						</h:form>
