@@ -26,7 +26,7 @@
 	            				<h:outputLabel for="situacaoPedido" value="Situação:" styleClass="DispBlock FontBold" />
 						        <p:selectOneMenu id="situacaoPedido" value="#{pedidoMBean.pedido.situacaoPedido}">
 						            <f:selectItem itemLabel="Selecione" itemValue="" />
-	            					<f:selectItems value="" />
+	            					<f:selectItems value="#{pedidoMBean.listaSituacaoPedido}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao}" />
 						        </p:selectOneMenu>
 		                    </div>
 		                    <div class="Container20 Responsive100">
@@ -36,20 +36,26 @@
 							</div>
 		                    <div class="Container20 Responsive100">
 	            				<h:outputLabel for="cliente" value="Cliente:" styleClass="DispBlock FontBold" />
-						        <p:selectOneMenu id="cliente" value="#{pedidoMBean.pedido.cliente}">
+						        <p:selectOneMenu id="cliente" value="#{pedidoMBean.pedido.cliente}" converter="clienteSelectOneMenuConverter">
 						            <f:selectItem itemLabel="Selecione" />
-	            					<f:selectItems value="#{clienteMBean.listaCompleta}" var="c" itemValue="#{c.id}" itemLabel="#{c.nome}" />
+	            					<f:selectItems value="#{clienteMBean.listaCompleta}" var="c" itemValue="#{c}" itemLabel="#{c.nome}" />
 						        </p:selectOneMenu>
 		                    </div>
 		                    <div class="Container20 Responsive100">
 		                    	<h:outputLabel for="desconto" value="Desconto:" styleClass="DispBlock FontBold" />
 	            				<p:inputText id="desconto" value="#{pedidoMBean.pedido.desconto}"
-	            					required="true" requiredMessage="Campo desconto é obrigatório" />
+	            					required="true" requiredMessage="Campo desconto é obrigatório">
+	            				  <f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
+	            						maxFractionDigits="2" pattern="#,##0.00"/>
+	            				</p:inputText>
 		                    </div>
 		                    <div class="Container20 Responsive100">
 		                    	<h:outputLabel for="valorPedido" value="Valor do Pedido:" styleClass="DispBlock FontBold" />
 	            				<p:inputText id="valorPedido" value="#{pedidoMBean.pedido.valorPedido}"
-	            					required="true" requiredMessage="Campo valor do pedido é obrigatório" />
+	            					required="true" requiredMessage="Campo valor do pedido é obrigatório">
+	            				<f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
+	            						maxFractionDigits="2" pattern="#,##0.00"/>
+	            				</p:inputText>
 		                    </div>
 		                    <div class="EmptyBox20"></div>
 		                    <div class="Container100 TexAlCenter">

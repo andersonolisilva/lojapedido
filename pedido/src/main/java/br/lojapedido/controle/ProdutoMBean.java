@@ -3,12 +3,14 @@ package br.lojapedido.controle;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import br.lojapedido.dao.ProdutoDAO;
 import br.lojapedido.dominio.Produto;
 import br.lojapedido.servico.ProdutoService;
 
 @ManagedBean
+@ViewScoped
 public class ProdutoMBean extends AbstractController<Produto> {
 	
 	private Produto produto = new Produto();
@@ -55,7 +57,7 @@ public class ProdutoMBean extends AbstractController<Produto> {
 		
 		try {
 			service.delete();
-			addSuccess("Produto excluído com sucesso");
+			addSuccess("Produto excluï¿½do com sucesso");
 		} finally {
 			dao.close();
 		}

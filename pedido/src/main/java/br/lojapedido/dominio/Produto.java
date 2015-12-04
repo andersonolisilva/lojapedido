@@ -12,8 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import lombok.Data;
 import br.lojapedido.dao.PersistDB;
 
+@Data
 @Entity
 public class Produto implements PersistDB{
 
@@ -37,76 +39,4 @@ public class Produto implements PersistDB{
 		this.setQuantidadeEstoque(quantidadeEstoque);
 		this.setPedidosDoProduto(pedidosDoProduto);
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	public BigDecimal getValor() {
-		return valor;
-	}
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
-	public BigDecimal getQuantidadeEstoque() {
-		return quantidadeEstoque;
-	}
-	public void setQuantidadeEstoque(BigDecimal quantidadeEstoque) {
-		this.quantidadeEstoque = quantidadeEstoque;
-	}
-	public List<PedidoItem> getPedidosDoProduto() {
-		return pedidosDoProduto;
-	}
-	public void setPedidosDoProduto(List<PedidoItem> pedidosDoProduto) {
-		this.pedidosDoProduto = pedidosDoProduto;
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + id;
-		result = prime
-				* result
-				+ ((quantidadeEstoque == null) ? 0 : quantidadeEstoque
-						.hashCode());
-		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Produto other = (Produto) obj;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (id != other.id)
-			return false;
-		if (quantidadeEstoque == null) {
-			if (other.quantidadeEstoque != null)
-				return false;
-		} else if (!quantidadeEstoque.equals(other.quantidadeEstoque))
-			return false;
-		if (valor == null) {
-			if (other.valor != null)
-				return false;
-		} else if (!valor.equals(other.valor))
-			return false;
-		return true;
-	}	
 }

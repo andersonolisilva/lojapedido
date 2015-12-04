@@ -3,12 +3,14 @@ package br.lojapedido.controle;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import br.lojapedido.dao.ClienteDAO;
 import br.lojapedido.dominio.Cliente;
 import br.lojapedido.servico.ClienteService;
 
 @ManagedBean
+@ViewScoped
 public class ClienteMBean extends AbstractController<Cliente> {
 	
 	private Cliente cliente = new Cliente();
@@ -36,6 +38,8 @@ public class ClienteMBean extends AbstractController<Cliente> {
 			
 			cliente = new Cliente();
 			addSuccess("Cliente salvo com sucesso");
+		}catch(Exception e){
+			addErro(e.getMessage());
 		} finally {
 			dao.close();
 		}
@@ -55,7 +59,9 @@ public class ClienteMBean extends AbstractController<Cliente> {
 		
 		try {
 			service.delete();
-			addSuccess("Cliente excluído com sucesso");
+			addSuccess("Cliente excluido com sucesso");
+		}catch(Exception e){
+			addErro(e.getMessage());
 		} finally {
 			dao.close();
 		}
