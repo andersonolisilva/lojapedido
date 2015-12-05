@@ -38,7 +38,7 @@
 	            				<h:outputLabel for="cliente" value="Cliente:" styleClass="DispBlock FontBold" />
 						        <p:selectOneMenu id="cliente" value="#{pedidoMBean.pedido.cliente}" converter="clienteSelectOneMenuConverter">
 						            <f:selectItem itemLabel="Selecione" />
-	            					<f:selectItems value="#{clienteMBean.listaCompleta}" var="c" itemValue="#{c}" itemLabel="#{c.nome}" />
+	            					<f:selectItems value="#{clienteMBean.listaCompleta}" var="cliente" itemValue="#{cliente}" itemLabel="#{cliente.nome}" />
 						        </p:selectOneMenu>
 		                    </div>
 		                    <div class="Container20 Responsive100">
