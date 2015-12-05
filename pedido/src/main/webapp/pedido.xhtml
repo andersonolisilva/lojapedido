@@ -26,7 +26,7 @@
                         <div class="EmptyBox10"></div>
 	                    <h:form id="tabelaPedido">
 							<p:dataTable id="singleDT" var="pedido" value="#{pedidoMBean.listaCompleta}" paginatorPosition="bottom"
-							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							             rows="20" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum pedido cadastrado" reflow="true"
 							             currentPageReportTemplate="{currentPage} de {totalPages}">
 							
@@ -61,61 +61,6 @@
 							    </p:column>
 							</p:dataTable>
 						</h:form>
-					</div>
-                </div>
-            </div>
-            
-        	<div class="ContainerIndent">
-                <div class="Card ShadowEffect">
-                	<div class="Container100">
-                		<h:form>
-                			<h:inputHidden value="#{pedidoMBean.pedido.id}" />
-                			<p:growl />
-	                        <h2 class="CardTopic">Cadastro</h2>
-	                        <p:separator styleClass="SeparatorFull" />
-	                        <div class="EmptyBox10"></div>
-		                    <div class="Container20 Responsive100">
-	            				<h:outputLabel for="situacaoPedido" value="Situação:" styleClass="DispBlock FontBold" />
-						        <p:selectOneMenu id="situacaoPedido" value="#{pedidoMBean.pedido.situacaoPedido}">
-	            					<f:selectItems value="#{pedidoMBean.listaSituacaoPedido}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao}" />
-						        </p:selectOneMenu>
-		                    </div>
-		                    <div class="Container20 Responsive100">
-	            				<h:outputLabel for="data" value="Data:" styleClass="DispBlock FontBold" />
-	        					<p:calendar id="data" value="#{pedidoMBean.pedido.dataPedido}"
-	        						required="true" requiredMessage="Campo data é obrigatório" />
-							</div>
-		                    <div class="Container20 Responsive100">
-	            				<h:outputLabel for="cliente" value="Cliente:" styleClass="DispBlock FontBold" />
-						        <p:selectOneMenu id="cliente" value="#{pedidoMBean.pedido.cliente}" converter="clienteSelectOneMenuConverter">
-	            					<f:selectItems value="#{clienteMBean.listaCompleta}" var="cliente" itemValue="#{cliente}" itemLabel="#{cliente.nome}" />
-						        </p:selectOneMenu>
-		                    </div>
-		                    <div class="Container20 Responsive100">
-		                    	<h:outputLabel for="desconto" value="Desconto:" styleClass="DispBlock FontBold" />
-	            				<p:inputText id="desconto" value="#{pedidoMBean.pedido.desconto}"
-	            					required="true" requiredMessage="Campo desconto é obrigatório">
-	            				  <f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
-	            						maxFractionDigits="2" pattern="#,##0.00"/>
-	            				</p:inputText>
-		                    </div>
-		                    <div class="Container20 Responsive100">
-		                    	<h:outputLabel for="valorPedido" value="Valor do Pedido:" styleClass="DispBlock FontBold" />
-	            				<p:inputText id="valorPedido" value="#{pedidoMBean.pedido.valorPedido}"
-	            					required="true" requiredMessage="Campo valor do pedido é obrigatório">
-	            				<f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
-	            						maxFractionDigits="2" pattern="#,##0.00" />
-	            				</p:inputText>
-		                    </div>
-		                    
-		                    <div class="EmptyBox20"></div>
-		                    
-		                    <div class="Container100 TexAlCenter">
-								<p:commandButton value="Salvar Pedido" id="salvar"
-									update="@form" ajax="false" action="#{pedidoMBean.salvar}"
-									styleClass="GreenButton" icon="fa fa-save" />
-							</div>
-		            	</h:form>
 					</div>
                 </div>
             </div>
