@@ -16,9 +16,9 @@
         	<div class="ContainerIndent">
                 <div class="Card ShadowEffect">
                 	<div class="Container100">
-                		<h:form>
-                			<h:inputHidden value="#{produtoMBean.produto.id}" />
+                		<h:form id="produto">
                 			<p:growl />
+                			<h:inputHidden value="#{produtoMBean.produto.id}" />
 	                        <h2 class="BigTopic">Cadastro</h2>
 	                        <p:separator styleClass="SeparatorFull" />
 	                        <div class="EmptyBox10"></div>
@@ -42,7 +42,7 @@
 		                    </div>
 		                    <div class="EmptyBox20"></div>
 		                    <div class="Container100 TexAlCenter">
-		                    	<p:commandButton value="Salvar" id="salvar" update="@form" ajax="false"
+		                    	<p:commandButton value="Salvar" id="btnSalvar" update="@form" ajax="false"
 		                    		action="#{produtoMBean.salvar}" styleClass="GreenButton" icon="fa fa-save" />
 		                    </div>
 		            	</h:form>
@@ -56,7 +56,8 @@
                         <h2 class="BigTopic">Lista</h2>
                         <p:separator styleClass="SeparatorFull" />
                         <div class="EmptyBox10"></div>
-	                    <h:form id="form">
+	                    <h:form id="tabelaProduto">	
+	                    	<p:growl />
 							<p:dataTable id="singleDT" var="produto" value="#{produtoMBean.listaCompleta}" paginatorPosition="bottom"
 							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum produto cadastrado" reflow="true"
@@ -76,10 +77,17 @@
 							    </p:column>
 							    <p:column headerText="Ações" styleClass="TexAlCenter">
 							        <p:commandButton action="#{produtoMBean.selecionar(produto)}" update="@form" 
-							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" />
-							        <p:commandButton action="#{produtoMBean.deletar(produto)}" onclick="return confirm('Deseja realmente deletar?')"
-							        	update="@form" ajax="false" icon="fa fa-trash Fs16 White" styleClass="RedButton" />
+							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" id="btnSelecionar" />
+							        	
+							        <p:commandButton action="#{produtoMBean.deletar(produto)}"
+							        	update="@form" icon="fa fa-trash Fs16 White" styleClass="RedButton" id="btnExcluir">
+							        	<p:confirm header="Confirmação" message="Tem certeza que deseja excluir?" icon="ui-icon-alert" />
+							        </p:commandButton>
 							    </p:column>
+							    
+							    <f:facet name="footer">
+							    	<h:outputText value="Total de produtos: #{produtoMBean.listaCompleta.size()}" />
+							    </f:facet>
 							</p:dataTable>
 						</h:form>
 					</div>

@@ -16,23 +16,23 @@ public class ClientesPage {
 		driver.get("http://localhost:8080/pedido/cliente.xhtml");
 	}
 	
-	public boolean existeNaListagem(String CPF, String nome, String email) {
-		return driver.getPageSource().contains(CPF) &&
+	public boolean existeNaListagem(String cpf, String nome, String email) {
+		return driver.getPageSource().contains(cpf) &&
 				driver.getPageSource().contains(nome) &&
 				driver.getPageSource().contains(email);
 	}
 	
-	public void cadastra(String CPF, String nome, String email) {
-		WebElement txtCPF = driver.findElement(By.id("cliente:cpf"));
+	public void cadastra(String cpf, String nome, String email) {
+		WebElement txtCpf = driver.findElement(By.id("cliente:cpf"));
 		WebElement txtNome = driver.findElement(By.id("cliente:nome"));
 		WebElement txtEmail = driver.findElement(By.id("cliente:email"));
 		
-		txtCPF.sendKeys(CPF);
+		txtCpf.sendKeys(cpf);
 		txtNome.sendKeys(nome);
 		txtEmail.sendKeys(email);
 		
 //		driver.findElement(By.id("cliente:btnSalvar")).click();
-		txtCPF.submit();
+		txtCpf.submit();
 	}
 	
 	public void edita(String CPF, String nome, String email) {
@@ -54,7 +54,7 @@ public class ClientesPage {
 	
 	public void remove() {
 		driver.findElement(By.id("tabelaCliente:singleDT:0:btnExcluir")).click();
-		driver.findElement(By.id("confirm")).click();
+		driver.findElement(By.id("btnSim")).click();
 		
 //		driver.findElement(By.id("form:singleDT:0:j_idt45")).click();
 		// falta descobrir como pegar botão do alert ou tentar colocar o confirm do primefaces!

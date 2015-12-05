@@ -102,7 +102,7 @@
 							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" id="btnSelecionar" />
 							        
 							        <p:commandButton actionListener="#{pedidoMBean.deletar(pedido)}" id="btnExcluir"
-							        	update="message singleDT" icon="fa fa-trash Fs16 White" styleClass="RedButton">
+							        	update="@form" icon="fa fa-trash Fs16 White" styleClass="RedButton">
 							        	<p:confirm header="Confirmação" message="Tem certeza?" icon="ui-icon-alert" />
 							        </p:commandButton>
 							    </p:column>
