@@ -34,5 +34,16 @@ public class PedidoItem implements PersistDB{
 	private BigDecimal valorVenda;
 	private BigDecimal quantidade;
 	private BigDecimal subTotal;
+	
+	public PedidoItem(){}
+	
+	public PedidoItem(Pedido pedido, Produto produto,
+			BigDecimal valorVenda, BigDecimal quantidade, BigDecimal subTotal) {
+		this.setProduto(produto);
+		this.setPedido(pedido);
+		this.setValorVenda(valorVenda);
+		this.setQuantidade(quantidade);
+		this.setSubTotal(subTotal);
+	}	
 		
 }
