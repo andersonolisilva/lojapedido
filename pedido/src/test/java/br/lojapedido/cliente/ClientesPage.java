@@ -1,4 +1,4 @@
-package br.lojapedido.teste;
+package br.lojapedido.cliente;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 public class ClientesPage {
 
-	private WebDriver driver;
+	private final WebDriver driver;
 	
 	public ClientesPage(WebDriver driver) {
 		this.driver = driver;
@@ -31,7 +31,27 @@ public class ClientesPage {
 		txtNome.sendKeys(nome);
 		txtEmail.sendKeys(email);
 		
-		txtCPF.submit();
+		driver.findElement(By.id("cliente:salvar")).click();
+	}
+	
+	public void edita(String CPF, String nome, String email) {
+		WebElement txtCPF = driver.findElement(By.name("cliente:cpf"));
+		WebElement txtNome = driver.findElement(By.name("cliente:nome"));
+		WebElement txtEmail = driver.findElement(By.name("cliente:email"));
+		
+		txtCPF.clear();
+		txtCPF.sendKeys(CPF);
+		txtNome.clear();
+		txtNome.sendKeys(nome);
+		txtEmail.clear();
+		txtEmail.sendKeys(email);
+		
+		driver.findElement(By.id("cliente:salvar")).click();
+	}
+	
+	public void remove() {
+		driver.findElement(By.id("form:singleDT:0:j_idt45")).click();
+		// falta descobrir como pegar botão do alert ou tentar colocar o confirm do primefaces!
 	}
 	
 }

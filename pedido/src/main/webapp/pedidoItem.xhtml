@@ -1,0 +1,112 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="subheader">
+        PedidoItem
+    </ui:define>
+    
+    <ui:define name="content">
+        
+        <div class="Container100">
+        
+        	<div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                	<div class="Container100">
+                		<h:form>
+                			<h:inputHidden value="#{pedidoItemMBean.pedidoItem.id}" />
+                			<p:growl />
+	                        <h2 class="BigTopic">Cadastro</h2>
+	                        <p:separator styleClass="SeparatorFull" />
+	                        <div class="EmptyBox10"></div>
+		                    <div class="Container20 Responsive100">
+	            				<h:outputLabel for="cliente" value="Cliente:" styleClass="DispBlock FontBold" />
+						        <p:selectOneMenu id="cliente" value="#{pedidoItemMBean.pedidoItem.pedido.cliente}" converter="clienteSelectOneMenuConverter">
+						            <f:selectItem itemLabel="Selecione" />
+	            					<f:selectItems value="#{clienteMBean.listaCompleta}" var="cliente" itemValue="#{cliente}" itemLabel="#{cliente.nome}" />
+						        </p:selectOneMenu>
+		                    </div>
+		                    <div class="Container20 Responsive100">
+	            				<h:outputLabel for="produto" value="Produto:" styleClass="DispBlock FontBold" />
+						        <p:selectOneMenu id="produto" value="#{pedidoItemMBean.pedidoItem.produto}">
+						            <f:selectItem itemLabel="Selecione" />
+	            					<f:selectItems value="#{produtoMBean.listaCompleta}" var="produto" itemValue="#{produto}" itemLabel="#{produto.descricao}" />
+						        </p:selectOneMenu>
+		                    </div>
+		                    <div class="Container20 Responsive100">
+		                    	<h:outputLabel for="valorVenda" value="Valor da venda:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="valorVenda" value="#{pedidoItemMBean.pedidoItem.valorVenda}"
+	            					required="true" requiredMessage="Campo valor da venda é obrigatório">
+	            				  <f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
+	            						maxFractionDigits="2" pattern="#,##0.00"/>
+	            				</p:inputText>
+		                    </div>
+		                    <div class="Container20 Responsive100">
+		                    	<h:outputLabel for="quantidade" value="Quantidade:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="quantidade" value="#{pedidoItemMBean.pedidoItem.quantidade}"
+	            					required="true" requiredMessage="Campo quantidade é obrigatório" />
+		                    </div>
+		                    <div class="Container20 Responsive100">
+		                    	<h:outputLabel for="subtotal" value="Subtotal:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="subtotal" value="#{pedidoItemMBean.pedidoItem.subTotal}"
+	            					required="true" requiredMessage="Campo subtotal é obrigatório">
+	            				<f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
+	            						maxFractionDigits="2" pattern="#,##0.00"/>
+	            				</p:inputText>
+		                    </div>
+		                    <div class="EmptyBox20"></div>
+		                    <div class="Container100 TexAlCenter">
+		                    	<p:commandButton value="Salvar" id="salvar" update="@form" ajax="false"
+		                    		action="#{pedidoItemMBean.salvar}" styleClass="GreenButton" icon="fa fa-save" />
+		                    </div>
+		            	</h:form>
+					</div>
+                </div>
+            </div>
+        
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                	<div class="Container100">
+                        <h2 class="BigTopic">Lista</h2>
+                        <p:separator styleClass="SeparatorFull" />
+                        <div class="EmptyBox10"></div>
+	                    <h:form id="form">
+							<p:dataTable id="singleDT" var="pedidoItem" value="#{pedidoItemMBean.listaCompleta}" paginatorPosition="bottom"
+							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum pedido cadastrado" reflow="true"
+							             currentPageReportTemplate="{currentPage} de {totalPages}">
+							
+							    <p:column headerText="Produto" styleClass="Wid20">
+							        <h:outputText value="#{pedidoItem.produto.descricao}" />
+							    </p:column>
+							    <p:column headerText="Cliente" styleClass="Wid30">
+							        <h:outputText value="#{pedidoItem.pedido.cliente}" />
+							    </p:column>
+							    <p:column headerText="Valor" styleClass="Wid10">
+							        <h:outputText value="#{pedidoItem.valorVenda}" />
+							    </p:column>
+							    <p:column headerText="Quantidade" styleClass="Wid10">
+							        <h:outputText value="#{pedidoItem.quantidade}" />
+							    </p:column>
+							    <p:column headerText="Subtotal" styleClass="Wid10">
+							        <h:outputText value="#{pedidoItem.subTotal}" />
+							    </p:column>
+							    <p:column headerText="Ações" styleClass="TexAlCenter">
+							        <p:commandButton action="#{pedidoItemMBean.selecionar(pedidoItem)}" update="@form" 
+							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" />
+							        <p:commandButton action="#{pedidoItemMBean.deletar(pedidoItem)}" onclick="return confirm('Deseja realmente deletar?')"
+							        	update="@form" ajax="false" icon="fa fa-trash Fs16 White" styleClass="RedButton" />
+							    </p:column>
+							</p:dataTable>
+						</h:form>
+					</div>
+                </div>
+            </div>
+        </div>
+        
+    </ui:define>
+
+</ui:composition>
