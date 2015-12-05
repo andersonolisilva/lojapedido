@@ -53,7 +53,7 @@
                         <h2 class="BigTopic">Lista</h2>
                         <p:separator styleClass="SeparatorFull" />
                         <div class="EmptyBox10"></div>
-	                    <h:form id="tabelaCliente">
+	                    <h:form id="tabelaCliente">	
 	                    	<p:growl />
 							<p:dataTable id="singleDT" var="cliente" value="#{clienteMBean.listaCompleta}" paginatorPosition="bottom"
 							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -72,11 +72,16 @@
 							    <p:column headerText="Ações" styleClass="TexAlCenter">
 							        <p:commandButton action="#{clienteMBean.selecionar(cliente)}" update="@form" 
 							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" id="btnSelecionar" />
-							        <p:commandButton actionListener="#{clienteMBean.deletar(cliente)}"
-							        	update="@form" ajax="true" icon="fa fa-trash Fs16 White" styleClass="RedButton" id="btnExcluir">
+							        	
+							        <p:commandButton action="#{clienteMBean.deletar(cliente)}"
+							        	update="@form" icon="fa fa-trash Fs16 White" styleClass="RedButton" id="btnExcluir">
 							        	<p:confirm header="Confirmação" message="Tem certeza que deseja excluir?" icon="ui-icon-alert" />
 							        </p:commandButton>
 							    </p:column>
+							    
+							    <f:facet name="footer">
+							    	<h:outputText value="Total de clientes: #{clienteMBean.listaCompleta.size()}" />
+							    </f:facet>
 							</p:dataTable>
 						</h:form>
 					</div>

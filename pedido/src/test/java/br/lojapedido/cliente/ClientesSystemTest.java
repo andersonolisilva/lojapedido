@@ -22,9 +22,9 @@ public class ClientesSystemTest {
 	@Test
 	public void deveAdicionarUmCliente() {
 		clientes.visita();
-		clientes.cadastra("22222222222","Uira Kulesza","uirakulesza@gmail.com");
+		clientes.cadastra("22222222222", "Uira Kulesza", "uirakulesza@gmail.com");
 		
-		assertTrue(clientes.existeNaListagem("22222222222","Uira Kulesza","uirakulesza@gmail.com"));
+		assertTrue(clientes.existeNaListagem("22222222222", "Uira Kulesza", "uirakulesza@gmail.com"));
 		
 		clientes.remove();
 	}
@@ -32,10 +32,10 @@ public class ClientesSystemTest {
 	@Test
 	public void deveEditarUmCliente() {
 		clientes.visita();
-		clientes.cadastra("22222222222","Uira Kulesza","uirakulesza@gmail.com");
+		clientes.cadastra("22222222222", "Uira Kulesza", "uirakulesza@gmail.com");
 		clientes.edita("22222222222", "Uira Kulesza", "uirakulesza@hotmail.com");
 		
-		assertTrue(clientes.existeNaListagem("22222222222","Uira Kulesza","uirakulesza@hotmail.com"));
+		assertTrue(clientes.existeNaListagem("22222222222", "Uira Kulesza", "uirakulesza@hotmail.com"));
 		
 		clientes.remove();
 	}
@@ -43,10 +43,10 @@ public class ClientesSystemTest {
 	@Test
 	public void deveRemoverUmCliente() {
 		clientes.visita();
-		clientes.cadastra("22222222222","Uira Kulesza","uirakulesza@gmail.com");
+		clientes.cadastra("22222222222", "Uira Kulesza", "uirakulesza@gmail.com");
 		clientes.remove();
 		
-		assertFalse(clientes.existeNaListagem("22222222222","Uira Kulesza","uirakulesza@gmail.com"));
+		assertFalse(clientes.existeNaListagem("22222222222", "Uira Kulesza", "uirakulesza@gmail.com"));
 	}
 	
 	@After

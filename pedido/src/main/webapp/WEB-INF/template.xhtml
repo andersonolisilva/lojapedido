@@ -25,11 +25,6 @@
         
         <ui:include src="topbar.xhtml" />
         
-        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-		        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-		        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-	    </p:confirmDialog>
-        
         <div id="wrapper">
             <div id="wrapperIndent">
 
@@ -42,7 +37,7 @@
                         <div class="Container100 UserLinks">
                             <div class="ContainerIndent TexAlRight">
 <!--                                 <a href="#" class="DispInlBlock Fright BoldGray HoverEffect"><i class="icon-shopping_cart Fs30"><span class="CartText White">2</span></i> </a> -->
-                                <a href="" class="DispInlBlock Fright BoldGray MarRight10 HoverEffect"><span class="Fs22 FontRobotoLight MarRight10">Uirá Kulesza, Bem-vindo</span> <i class="icon-account_circle Fright Fs30"></i></a>
+                                <a href="" class="DispInlBlock Fright BoldGray MarRight10"><span class="Fs22 FontRobotoLight MarRight10">Uirá Kulesza, Bem-vindo</span> <i class="icon-account_circle Fright Fs30"></i></a>
                             </div>   
 
                             <div class="EmptyBox10"></div>
@@ -86,6 +81,11 @@
                 </p:ajaxStatus>
             </div>
         </div>
+        
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+			<p:commandButton id="btnSim" value="Sim" type="button" styleClass="ui-confirmdialog-yes MarRight10" icon="fa fa-check"/>
+			<p:commandButton id="btnNao" value="Não" type="button" styleClass="ui-confirmdialog-no RedButton" icon="fa fa-close"/>
+	    </p:confirmDialog>
 
         <h:outputStylesheet name="css/core-layout.css" library="modena-layout" />
         <h:outputStylesheet name="css/animate.css" library="modena-layout" />
