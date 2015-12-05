@@ -7,21 +7,21 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import br.lojapedido.dominio.Cliente;
+import br.lojapedido.dominio.Produto;
 
-@FacesConverter("clienteSelectOneMenuConverter")
+@FacesConverter("produtoSelectOneMenuConverter")
 public class ProdutoSelectOneMenuConverter implements Converter {
 
 	public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
 		if (value != null && value.trim().length() > 0) {
 			try {
 				FacesContext context = FacesContext.getCurrentInstance();
-				ClienteSelectOneMenu cliente = (ClienteSelectOneMenu) context.getELContext().getELResolver().getValue(context.getELContext(), null, "clienteSelectOneMenu");
-		        return (Cliente)cliente.findByClienteById( Integer.parseInt(value) );
+				ProdutoSelectOneMenu produto = (ProdutoSelectOneMenu) context.getELContext().getELResolver().getValue(context.getELContext(), null, "produtoSelectOneMenu");
+		        return (Produto)produto.findByProdutoById( Integer.parseInt(value) );
 			} catch (NumberFormatException e) {
 				throw new ConverterException(new FacesMessage(
 						FacesMessage.SEVERITY_ERROR, "Erro na Conversão",
-						"Não foi possível obter a lista de clientes."));
+						"Não foi possível obter a lista de produtos."));
 			}
 		} else {
 			return null;
@@ -30,7 +30,7 @@ public class ProdutoSelectOneMenuConverter implements Converter {
 
 	public String getAsString(FacesContext fc, UIComponent uic, Object object) {
 		if (object != null) {
-			return String.valueOf(((Cliente) object).getId());
+			return String.valueOf(((Produto) object).getId());
 		} else {
 			return null;
 		}
