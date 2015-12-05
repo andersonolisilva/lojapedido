@@ -12,14 +12,66 @@
     <ui:define name="content">
         
         <div class="Container100">
-        
+        	
+        	<div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                	<div class="Container100">
+                        <h2 class="CardTopic">
+                        	Lista
+                        	<span class="Fright">
+                        		<p:button outcome="pedidoItem" value="Voltar" icon="fa fa-arrow-left" />
+                        	</span>
+                        </h2>
+                        <p:separator styleClass="SeparatorFull" />
+                        <div class="EmptyBox10"></div>
+	                    <h:form id="tabelaPedido">
+							<p:dataTable id="singleDT" var="pedido" value="#{pedidoMBean.listaCompleta}" paginatorPosition="bottom"
+							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum pedido cadastrado" reflow="true"
+							             currentPageReportTemplate="{currentPage} de {totalPages}">
+							
+							    <p:column headerText="ID" styleClass="Wid10">
+							        <h:outputText value="#{pedido.id}" />
+							    </p:column>
+							    <p:column headerText="Situação" styleClass="Wid10">
+							        <h:outputText value="#{pedido.situacaoPedido}" />
+							    </p:column>
+							    <p:column headerText="Data" styleClass="Wid10">
+							        <h:outputText value="#{pedido.dataPedido}">
+							        	<f:convertDateTime pattern="dd/MM/yyyy"/>
+							        </h:outputText>
+							    </p:column>
+							    <p:column headerText="Cliente">
+							        <h:outputText value="#{pedido.cliente.nome}" />
+							    </p:column>
+							    <p:column headerText="Desconto" styleClass="Wid10">
+							        <h:outputText value="#{pedido.desconto}" />
+							    </p:column>
+							    <p:column headerText="Valor" styleClass="Wid10">
+							        <h:outputText value="#{pedido.valorPedido}" />
+							    </p:column>
+							    <p:column headerText="Ações" styleClass="TexAlCenter">
+							        <p:commandButton action="#{pedidoMBean.selecionar(pedido)}" update="@form" 
+							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" id="btnSelecionar" />
+							        
+							        <p:commandButton actionListener="#{pedidoMBean.deletar(pedido)}" id="btnExcluir"
+							        	update="@form" icon="fa fa-trash Fs16 White" styleClass="RedButton">
+							        	<p:confirm header="Confirmação" message="Tem certeza que deseja excluir?" icon="ui-icon-alert" />
+							        </p:commandButton>
+							    </p:column>
+							</p:dataTable>
+						</h:form>
+					</div>
+                </div>
+            </div>
+            
         	<div class="ContainerIndent">
                 <div class="Card ShadowEffect">
                 	<div class="Container100">
                 		<h:form>
                 			<h:inputHidden value="#{pedidoMBean.pedido.id}" />
                 			<p:growl />
-	                        <h2 class="BigTopic">Cadastro</h2>
+	                        <h2 class="CardTopic">Cadastro</h2>
 	                        <p:separator styleClass="SeparatorFull" />
 	                        <div class="EmptyBox10"></div>
 		                    <div class="Container20 Responsive100">
@@ -52,118 +104,18 @@
 	            				<p:inputText id="valorPedido" value="#{pedidoMBean.pedido.valorPedido}"
 	            					required="true" requiredMessage="Campo valor do pedido é obrigatório">
 	            				<f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
-	            						maxFractionDigits="2" pattern="#,##0.00"/>
+	            						maxFractionDigits="2" pattern="#,##0.00" />
 	            				</p:inputText>
 		                    </div>
-		                    <div class="EmptyBox10"></div>
-		                    <p:dataTable id="tableItemPedido" var="pedidoItem" value="#{pedidoMBean.pedido.itensDoPedido}" paginatorPosition="bottom"
-							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							             rowsPerPageTemplate="5,10,15" emptyMessage="Pedido sem item cadastrado" reflow="true"
-							             currentPageReportTemplate="{currentPage} de {totalPages}">
-							
-							    <p:column headerText="Produto" styleClass="Wid20">
-							        <h:outputText value="#{pedidoItem.produto.descricao}" />
-							    </p:column>
-							    <p:column headerText="Quantidade" styleClass="Wid10">
-							        <h:outputText value="#{pedidoItem.quantidade}" />
-							    </p:column>
-							    <p:column headerText="Valor" styleClass="Wid10">
-							        <h:outputText value="#{pedidoItem.valorVenda}" />
-							    </p:column>
-							    <p:column headerText="Ações" styleClass="TexAlCenter">
-							        <p:commandButton action="#{pedidoMBean.selecionarItemPedido(pedidoItem)}" update="@form" 
-							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" id="btnSelecionarItem" />
-							        
-							        <p:commandButton actionListener="#{pedidoMBean.deletarItemPedido(pedidoItem)}" id="btnExcluirItem"
-							        	update="tableItemPedido" icon="fa fa-trash Fs16 White" styleClass="RedButton">
-							        	<p:confirm header="Confirmação" message="Tem certeza?" icon="ui-icon-alert" />
-							        </p:commandButton>
-							    </p:column>
-							</p:dataTable>
-							<div class="EmptyBox20"></div>
-		                    <div class="Container20 Responsive100">
-	            				<h:outputLabel for="produtoDoItem" value="Produto:" styleClass="DispBlock FontBold" />
-						        <p:selectOneMenu id="produto" value="#{pedidoMBean.pedidoItem.produto}" converter="produtoSelectOneMenuConverter">
-	            					<f:selectItems value="#{produtoMBean.listaCompleta}" var="produto" itemValue="#{produto}" itemLabel="#{produto.descricao}" />
-						        </p:selectOneMenu>
-		                    </div>
-		                    <div class="Container20 Responsive100">
-		                    	<h:outputLabel for="quantidadeDoItem" value="Quantidade:" styleClass="DispBlock FontBold" />
-	            				<p:inputText id="quantidadeDoItem" value="#{pedidoMBean.pedidoItem.quantidade}"
-	            					>
-	            				  <f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
-	            						maxFractionDigits="2" pattern="#,##0.00"/>
-	            				</p:inputText>
-		                    </div>
-		                    <div class="Container20 Responsive100">
-		                    	<h:outputLabel for="valorDoItem" value="Valor do Produto:" styleClass="DispBlock FontBold" />
-	            				<p:inputText id="valorDoItem" value="#{pedidoMBean.pedidoItem.valorVenda}"
-	            					>
-	            				<f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
-	            						maxFractionDigits="2" pattern="#,##0.00"/>
-	            				</p:inputText>
-		                    </div>
-		                    <div class="Container20 Responsive100">
-		                    <p:commandButton value="Novo Item" id="NovoItem" update="@form" ajax="false"
-		                    		action="#{pedidoMBean.novoItemPedido()}" styleClass="GreenButton" icon="fa fa-save" />
-		                    </div>
-		                    <div class="Container20 Responsive100">
-		                    <p:commandButton value="Salvar Item" id="salvarItem" update="@form" ajax="false"
-		                    		action="#{pedidoMBean.adicionarItemPedido()}" styleClass="GreenButton" icon="fa fa-save" />
-		                    </div>
-		                    <div class="EmptyBox10"></div>
-		                    <div class="Container20 Responsive100">
-		                    	<p:commandButton value="Salvar Pedido" id="salvar" update="@form" ajax="false"
-		                    		action="#{pedidoMBean.salvar}" styleClass="GreenButton" icon="fa fa-save" />
-		                    </div>
+		                    
+		                    <div class="EmptyBox20"></div>
+		                    
+		                    <div class="Container100 TexAlCenter">
+								<p:commandButton value="Salvar Pedido" id="salvar"
+									update="@form" ajax="false" action="#{pedidoMBean.salvar}"
+									styleClass="GreenButton" icon="fa fa-save" />
+							</div>
 		            	</h:form>
-					</div>
-                </div>
-            </div>
-        
-            <div class="ContainerIndent">
-                <div class="Card ShadowEffect">
-                	<div class="Container100">
-                        <h2 class="BigTopic">Lista de Pedidos</h2>
-                        <p:separator styleClass="SeparatorFull" />
-                        <div class="EmptyBox10"></div>
-	                    <h:form id="tabelaPedido">
-							<p:dataTable id="singleDT" var="pedido" value="#{pedidoMBean.listaCompleta}" paginatorPosition="bottom"
-							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum pedido cadastrado" reflow="true"
-							             currentPageReportTemplate="{currentPage} de {totalPages}">
-							
-							    <p:column headerText="ID" styleClass="Wid10">
-							        <h:outputText value="#{pedido.id}" />
-							    </p:column>
-							    <p:column headerText="Situação" styleClass="Wid20">
-							        <h:outputText value="#{pedido.situacaoPedido}" />
-							    </p:column>
-							    <p:column headerText="Data" styleClass="Wid20">
-							        <h:outputText value="#{pedido.dataPedido}">
-							        	<f:convertDateTime pattern="dd/MM/yyyy"/>
-							        </h:outputText>
-							    </p:column>
-							    <p:column headerText="Cliente">
-							        <h:outputText value="#{pedido.cliente.nome}" />
-							    </p:column>
-							    <p:column headerText="Desconto" styleClass="Wid10">
-							        <h:outputText value="#{pedido.desconto}" />
-							    </p:column>
-							    <p:column headerText="Valor do Pedido" styleClass="Wid10">
-							        <h:outputText value="#{pedido.valorPedido}" />
-							    </p:column>
-							    <p:column headerText="Ações" styleClass="TexAlCenter">
-							        <p:commandButton action="#{pedidoMBean.selecionar(pedido)}" update="@form" 
-							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" id="btnSelecionar" />
-							        
-							        <p:commandButton actionListener="#{pedidoMBean.deletar(pedido)}" id="btnExcluir"
-							        	update="@form" icon="fa fa-trash Fs16 White" styleClass="RedButton">
-							        	<p:confirm header="Confirmação" message="Tem certeza?" icon="ui-icon-alert" />
-							        </p:commandButton>
-							    </p:column>
-							</p:dataTable>
-						</h:form>
 					</div>
                 </div>
             </div>

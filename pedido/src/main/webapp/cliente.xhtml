@@ -12,42 +12,8 @@
     <ui:define name="content">
         
         <div class="Container100">
-        
+        	
         	<div class="ContainerIndent">
-                <div class="Card ShadowEffect">
-                	<div class="Container100">
-                		<h:form id="cliente">
-                			<p:growl />
-                			<h:inputHidden value="#{clienteMBean.cliente.id}" />
-	                        <h2 class="BigTopic">Cadastro</h2>
-	                        <p:separator styleClass="SeparatorFull" />
-	                        <div class="EmptyBox10"></div>
-		                    <div class="Container33 Responsive100">
-		                    	<h:outputLabel for="cpf" value="CPF:" styleClass="DispBlock FontBold" />
-	            				<p:inputText id="cpf" styleClass="Wid90" value="#{clienteMBean.cliente.CPF}"
-	            					required="true" requiredMessage="Campo CPF é obrigatório"/>
-		                    </div>
-		                    <div class="Container33 Responsive100">
-								<h:outputLabel for="nome" value="Nome:" styleClass="DispBlock FontBold" />
-	            				<p:inputText id="nome" styleClass="Wid90" value="#{clienteMBean.cliente.nome}"
-									required="true" requiredMessage="Campo nome é obrigatório"/>
-							</div>
-		                    <div class="Container33 Responsive100">
-		                    	<h:outputLabel for="email" value="E-mail:" styleClass="DispBlock FontBold" />
-	            				<p:inputText id="email" styleClass="Wid90" value="#{clienteMBean.cliente.email}"
-	            					required="true" requiredMessage="Campo e-mail é obrigatório"/>
-		                    </div>
-		                    <div class="EmptyBox20"></div>
-		                    <div class="Container100 TexAlCenter">
-		                    	<p:commandButton value="Salvar" id="btnSalvar" update="@form" ajax="false"
-		                    		action="#{clienteMBean.salvar}" styleClass="GreenButton" icon="fa fa-save" />
-		                    </div>
-		            	</h:form>
-					</div>
-                </div>
-            </div>
-        
-            <div class="ContainerIndent">
                 <div class="Card ShadowEffect">
                 	<div class="Container100">
                         <h2 class="BigTopic">Lista</h2>
@@ -87,6 +53,41 @@
 					</div>
                 </div>
             </div>
+            
+        	<div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                	<div class="Container100">
+                		<h:form id="cliente">
+                			<p:growl />
+                			<h:inputHidden value="#{clienteMBean.cliente.id}" />
+	                        <h2 class="BigTopic">Cadastro</h2>
+	                        <p:separator styleClass="SeparatorFull" />
+	                        <div class="EmptyBox10"></div>
+		                    <div class="Container33 Responsive100">
+		                    	<h:outputLabel for="cpf" value="CPF:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="cpf" styleClass="Wid90" value="#{clienteMBean.cliente.CPF}"
+	            					required="true" requiredMessage="Campo CPF é obrigatório"/>
+		                    </div>
+		                    <div class="Container33 Responsive100">
+								<h:outputLabel for="nome" value="Nome:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="nome" styleClass="Wid90" value="#{clienteMBean.cliente.nome}"
+									required="true" requiredMessage="Campo nome é obrigatório"/>
+							</div>
+		                    <div class="Container33 Responsive100">
+		                    	<h:outputLabel for="email" value="E-mail:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="email" styleClass="Wid90" value="#{clienteMBean.cliente.email}"
+	            					required="true" requiredMessage="Campo e-mail é obrigatório"/>
+		                    </div>
+		                    <div class="EmptyBox20"></div>
+		                    <div class="Container100 TexAlCenter">
+		                    	<p:commandButton value="Salvar" id="btnSalvar" update="@form" ajax="false"
+		                    		action="#{clienteMBean.salvar}" styleClass="GreenButton" icon="fa fa-save" />
+		                    </div>
+		            	</h:form>
+					</div>
+                </div>
+            </div>
+        
         </div>
         
     </ui:define>

@@ -1,0 +1,177 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="subheader">
+        Item
+    </ui:define>
+
+	<ui:define name="content">
+
+		<div class="Container100">
+
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect">
+					<div class="Container100">
+						<h2 class="CardTopic">
+							Lista
+							<span class="Fright">
+                        		<p:button outcome="pedido" value="Visualizar Pedidos" icon="fa fa-arrow-right" />
+                        	</span>
+						</h2>
+						<p:separator styleClass="SeparatorFull" />
+						<div class="EmptyBox10"></div>
+						<h:form id="tabelaPedido">
+							<p:dataTable id="tableItemPedido" var="pedidoItem"
+								value="#{pedidoMBean.pedido.itensDoPedido}"
+								paginatorPosition="bottom" rows="10" paginator="true"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15"
+								emptyMessage="Pedido sem item cadastrado" reflow="true"
+								currentPageReportTemplate="{currentPage} de {totalPages}">
+
+								<p:column headerText="Produto" styleClass="Wid20">
+									<h:outputText value="#{pedidoItem.produto.descricao}" />
+								</p:column>
+								<p:column headerText="Quantidade" styleClass="Wid10">
+									<h:outputText value="#{pedidoItem.quantidade}" />
+								</p:column>
+								<p:column headerText="Valor" styleClass="Wid10">
+									<h:outputText value="#{pedidoItem.valorVenda}" />
+								</p:column>
+								<p:column headerText="SubTotal" styleClass="Wid10">
+									<h:outputText value="#{pedidoItem.subTotal}" />
+								</p:column>
+								<p:column headerText="Ações" styleClass="TexAlCenter">
+									<p:commandButton
+										action="#{pedidoMBean.selecionarItemPedido(pedidoItem)}"
+										update="@form" ajax="false" icon="fa fa-edit"
+										styleClass="MarRight10" id="btnSelecionarItem" />
+
+									<p:commandButton
+										actionListener="#{pedidoMBean.deletarItemPedido(pedidoItem)}"
+										id="btnExcluirItem" update="tableItemPedido"
+										icon="fa fa-trash Fs16 White" styleClass="RedButton">
+										<p:confirm header="Confirmação" message="Tem certeza?"
+											icon="ui-icon-alert" />
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+						</h:form>
+					</div>
+				</div>
+			</div>
+
+			<div class="ContainerIndent">
+				<div class="Card ShadowEffect">
+					<div class="Container100">
+						<h:form>
+							<h:inputHidden value="#{pedidoMBean.pedido.id}" />
+							<p:growl />
+							<h2 class="CardTopic">Cadastro</h2>
+							<p:separator styleClass="SeparatorFull" />
+							<div class="EmptyBox10"></div>
+							<div class="Container100">
+								<div class="Container20 Responsive100">
+		            				<h:outputLabel for="situacaoPedido" value="Situação:" styleClass="DispBlock FontBold" />
+							        <p:selectOneMenu id="situacaoPedido" value="#{pedidoMBean.pedido.situacaoPedido}">
+		            					<f:selectItems value="#{pedidoMBean.listaSituacaoPedido}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao}" />
+							        </p:selectOneMenu>
+			                    </div>
+			                    <div class="Container20 Responsive100">
+		            				<h:outputLabel for="data" value="Data:" styleClass="DispBlock FontBold" />
+		        					<p:calendar id="data" value="#{pedidoMBean.pedido.dataPedido}"
+		        						required="true" requiredMessage="Campo data é obrigatório" />
+								</div>
+			                    <div class="Container20 Responsive100">
+		            				<h:outputLabel for="cliente" value="Cliente:" styleClass="DispBlock FontBold" />
+							        <p:selectOneMenu id="cliente" value="#{pedidoMBean.pedido.cliente}" converter="clienteSelectOneMenuConverter">
+		            					<f:selectItems value="#{clienteMBean.listaCompleta}" var="cliente" itemValue="#{cliente}" itemLabel="#{cliente.nome}" />
+							        </p:selectOneMenu>
+			                    </div>
+			                    <div class="Container20 Responsive100">
+			                    	<h:outputLabel for="desconto" value="Desconto:" styleClass="DispBlock FontBold" />
+		            				<p:inputText id="desconto" value="#{pedidoMBean.pedido.desconto}"
+		            					required="true" requiredMessage="Campo desconto é obrigatório">
+		            				  <f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
+		            						maxFractionDigits="2" pattern="#,##0.00"/>
+		            				</p:inputText>
+			                    </div>
+			                    <div class="Container20 Responsive100">
+			                    	<h:outputLabel for="valorPedido" value="Valor do Pedido:" styleClass="DispBlock FontBold" />
+		            				<p:inputText id="valorPedido" value="#{pedidoMBean.pedido.valorPedido}"
+		            					required="true" requiredMessage="Campo valor do pedido é obrigatório">
+		            				<f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
+		            						maxFractionDigits="2" pattern="#,##0.00" />
+		            				</p:inputText>
+			                    </div>
+			                </div>
+			                
+			                <div class="EmptyBox20"></div>
+			                
+							<div class="Container100">
+								<div class="Container20 Responsive100">
+									<h:outputLabel for="produtoDoItem" value="Produto:"
+										styleClass="DispBlock FontBold" />
+									<p:selectOneMenu id="produto"
+										value="#{pedidoMBean.pedidoItem.produto}"
+										converter="produtoSelectOneMenuConverter">
+										<f:selectItems value="#{produtoMBean.listaCompleta}"
+											var="produto" itemValue="#{produto}"
+											itemLabel="#{produto.descricao}" />
+									</p:selectOneMenu>
+								</div>
+								<div class="Container20 Responsive100">
+									<h:outputLabel for="quantidadeDoItem" value="Quantidade:"
+										styleClass="DispBlock FontBold" />
+									<p:inputText id="quantidadeDoItem"
+										value="#{pedidoMBean.pedidoItem.quantidade}">
+										<f:convertNumber type="currency" currencySymbol="R$"
+											groupingUsed="true" maxFractionDigits="2" pattern="#,##0.00" />
+									</p:inputText>
+								</div>
+								<div class="Container60 Responsive100">
+									<h:outputLabel for="valorDoItem" value="Valor do Produto:"
+										styleClass="DispBlock FontBold" />
+									<p:inputText id="valorDoItem"
+										value="#{pedidoMBean.pedidoItem.valorVenda}">
+										<f:convertNumber type="currency" currencySymbol="R$"
+											groupingUsed="true" maxFractionDigits="2" pattern="#,##0.00" />
+									</p:inputText>
+								</div>
+							</div>
+							
+							<div class="EmptyBox20"></div>
+							
+							<div class="Container100">
+								<div class="Container50 Responsive100">
+									<p:commandButton value="Novo Item" id="NovoItem" update="@form"
+										ajax="false" action="#{pedidoMBean.novoItemPedido()}" icon="fa fa-plus" />
+								</div>
+								<div class="Container50 Responsive100 TexAlRight">
+									<p:commandButton value="Salvar Item" id="salvarItem"
+										update="@form" ajax="false"
+										action="#{pedidoMBean.adicionarItemPedido()}"
+										styleClass="GreenButton" icon="fa fa-save" />
+								</div>
+							</div>
+							
+							<div class="EmptyBox20"></div>
+							
+							<div class="Container100 Responsive100 TexAlCenter">
+								<p:commandButton value="Salvar Pedido" id="salvar"
+									update="@form" ajax="false" action="#{pedidoMBean.salvar}"
+									styleClass="GreenButton" icon="fa fa-save" />
+							</div>
+							
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

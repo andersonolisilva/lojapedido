@@ -45,14 +45,12 @@ public class PedidoMBean extends AbstractController<Pedido> {
 	public String salvar() {
 		PedidoDAO dao = new PedidoDAO();
 		service = new PedidoService(dao, pedido);
-
 		try {
 			if (pedido.getId() == 0) {
 				service.create();
 			} else {
 				service.update();
 			}
-
 			pedido = new Pedido();
 			addSuccess("Pedido salvo com sucesso");
 		} catch (Exception e) {
@@ -80,7 +78,6 @@ public class PedidoMBean extends AbstractController<Pedido> {
 		} finally {
 			dao.close();
 		}
-
 		return null;
 	}
 
@@ -103,6 +100,7 @@ public class PedidoMBean extends AbstractController<Pedido> {
 		if (this.pedido.getItensDoPedido().contains(this.pedidoItem)){
 			this.pedido.getItensDoPedido().remove(this.pedidoItem);
 		}
+		this.pedidoItem.setSubTotal(calculaTotalItemPedido(this.pedidoItem));
 		this.pedido.getItensDoPedido().add(this.pedidoItem);
 		this.pedido.setValorPedido(calculaTotalDoPedido());
 	}
@@ -120,6 +118,11 @@ public class PedidoMBean extends AbstractController<Pedido> {
 	    	}
 	    }
 	    return totalDoPedido;
+	}
+	
+	public BigDecimal calculaTotalItemPedido(PedidoItem pedidoItem){
+		pedidoItem.setSubTotal(pedidoItem.getQuantidade().multiply(pedidoItem.getValorVenda()));
+		return pedidoItem.getSubTotal();
 	}
 
 }
