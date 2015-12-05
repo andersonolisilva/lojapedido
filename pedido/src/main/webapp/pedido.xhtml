@@ -68,7 +68,16 @@
 							        <h:outputText value="#{pedidoItem.quantidade}" />
 							    </p:column>
 							    <p:column headerText="Valor" styleClass="Wid10">
-							        <h:outputText value="#{pedidoItem.valorVenda}" />
+							        <h:outputText value="#{pedidoItem.valorVenda}">
+							        <f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
+	            						maxFractionDigits="2" pattern="#,##0.00"/>
+							        </h:outputText>
+							    </p:column>
+							     <p:column headerText="Subtotal" styleClass="Wid10">
+							        <h:outputText value="#{pedidoItem.subTotal}">
+							        <f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
+	            						maxFractionDigits="2" pattern="#,##0.00"/>
+							        </h:outputText>
 							    </p:column>
 							    <p:column headerText="Ações" styleClass="TexAlCenter">
 							        <p:commandButton action="#{pedidoMBean.selecionarItemPedido(pedidoItem)}" update="@form" 
