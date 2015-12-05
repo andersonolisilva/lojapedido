@@ -12,7 +12,7 @@ public class ClienteSelectOneMenu {
 
 	ClienteDAO dao = new ClienteDAO();
 	
-	public Collection<Cliente> findByAllBanco(){
+	public Collection<Cliente> findByAllCliente(){
 		return dao.findAll();
 	}
 	
