@@ -25,7 +25,6 @@
 		                    <div class="Container20 Responsive100">
 	            				<h:outputLabel for="situacaoPedido" value="Situação:" styleClass="DispBlock FontBold" />
 						        <p:selectOneMenu id="situacaoPedido" value="#{pedidoMBean.pedido.situacaoPedido}">
-						            <f:selectItem itemLabel="Selecione" itemValue="" />
 	            					<f:selectItems value="#{pedidoMBean.listaSituacaoPedido}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao}" />
 						        </p:selectOneMenu>
 		                    </div>
@@ -37,7 +36,6 @@
 		                    <div class="Container20 Responsive100">
 	            				<h:outputLabel for="cliente" value="Cliente:" styleClass="DispBlock FontBold" />
 						        <p:selectOneMenu id="cliente" value="#{pedidoMBean.pedido.cliente}" converter="clienteSelectOneMenuConverter">
-						            <f:selectItem itemLabel="Selecione" />
 	            					<f:selectItems value="#{clienteMBean.listaCompleta}" var="cliente" itemValue="#{cliente}" itemLabel="#{cliente.nome}" />
 						        </p:selectOneMenu>
 		                    </div>
@@ -57,9 +55,65 @@
 	            						maxFractionDigits="2" pattern="#,##0.00"/>
 	            				</p:inputText>
 		                    </div>
-		                    <div class="EmptyBox20"></div>
-		                    <div class="Container100 TexAlCenter">
-		                    	<p:commandButton value="Salvar" id="salvar" update="@form" ajax="false"
+		                    <div class="EmptyBox10"></div>
+		                    <p:dataTable id="tableItemPedido" var="pedidoItem" value="#{pedidoMBean.pedido.itensDoPedido}" paginatorPosition="bottom"
+							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							             rowsPerPageTemplate="5,10,15" emptyMessage="Pedido sem item cadastrado" reflow="true"
+							             currentPageReportTemplate="{currentPage} de {totalPages}">
+							
+							    <p:column headerText="Produto" styleClass="Wid20">
+							        <h:outputText value="#{pedidoItem.produto.descricao}" />
+							    </p:column>
+							    <p:column headerText="Quantidade" styleClass="Wid10">
+							        <h:outputText value="#{pedidoItem.quantidade}" />
+							    </p:column>
+							    <p:column headerText="Valor" styleClass="Wid10">
+							        <h:outputText value="#{pedidoItem.valorVenda}" />
+							    </p:column>
+							    <p:column headerText="Ações" styleClass="TexAlCenter">
+							        <p:commandButton action="#{pedidoMBean.selecionarItemPedido(pedidoItem)}" update="@form" 
+							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" id="btnSelecionarItem" />
+							        
+							        <p:commandButton actionListener="#{pedidoMBean.deletarItemPedido(pedidoItem)}" id="btnExcluirItem"
+							        	update="tableItemPedido" icon="fa fa-trash Fs16 White" styleClass="RedButton">
+							        	<p:confirm header="Confirmação" message="Tem certeza?" icon="ui-icon-alert" />
+							        </p:commandButton>
+							    </p:column>
+							</p:dataTable>
+							<div class="EmptyBox20"></div>
+		                    <div class="Container20 Responsive100">
+	            				<h:outputLabel for="produtoDoItem" value="Produto:" styleClass="DispBlock FontBold" />
+						        <p:selectOneMenu id="produto" value="#{pedidoMBean.pedidoItem.produto}" converter="produtoSelectOneMenuConverter">
+	            					<f:selectItems value="#{produtoMBean.listaCompleta}" var="produto" itemValue="#{produto}" itemLabel="#{produto.descricao}" />
+						        </p:selectOneMenu>
+		                    </div>
+		                    <div class="Container20 Responsive100">
+		                    	<h:outputLabel for="quantidadeDoItem" value="Quantidade:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="quantidadeDoItem" value="#{pedidoMBean.pedidoItem.quantidade}"
+	            					>
+	            				  <f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
+	            						maxFractionDigits="2" pattern="#,##0.00"/>
+	            				</p:inputText>
+		                    </div>
+		                    <div class="Container20 Responsive100">
+		                    	<h:outputLabel for="valorDoItem" value="Valor do Produto:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="valorDoItem" value="#{pedidoMBean.pedidoItem.valorVenda}"
+	            					>
+	            				<f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
+	            						maxFractionDigits="2" pattern="#,##0.00"/>
+	            				</p:inputText>
+		                    </div>
+		                    <div class="Container20 Responsive100">
+		                    <p:commandButton value="Novo Item" id="NovoItem" update="@form" ajax="false"
+		                    		action="#{pedidoMBean.novoItemPedido()}" styleClass="GreenButton" icon="fa fa-save" />
+		                    </div>
+		                    <div class="Container20 Responsive100">
+		                    <p:commandButton value="Salvar Item" id="salvarItem" update="@form" ajax="false"
+		                    		action="#{pedidoMBean.adicionarItemPedido()}" styleClass="GreenButton" icon="fa fa-save" />
+		                    </div>
+		                    <div class="EmptyBox10"></div>
+		                    <div class="Container20 Responsive100">
+		                    	<p:commandButton value="Salvar Pedido" id="salvar" update="@form" ajax="false"
 		                    		action="#{pedidoMBean.salvar}" styleClass="GreenButton" icon="fa fa-save" />
 		                    </div>
 		            	</h:form>
@@ -70,7 +124,7 @@
             <div class="ContainerIndent">
                 <div class="Card ShadowEffect">
                 	<div class="Container100">
-                        <h2 class="BigTopic">Lista</h2>
+                        <h2 class="BigTopic">Lista de Pedidos</h2>
                         <p:separator styleClass="SeparatorFull" />
                         <div class="EmptyBox10"></div>
 	                    <h:form id="tabelaPedido">
@@ -86,7 +140,9 @@
 							        <h:outputText value="#{pedido.situacaoPedido}" />
 							    </p:column>
 							    <p:column headerText="Data" styleClass="Wid20">
-							        <h:outputText value="#{pedido.dataPedido}" />
+							        <h:outputText value="#{pedido.dataPedido}">
+							        	<f:convertDateTime pattern="dd/MM/yyyy"/>
+							        </h:outputText>
 							    </p:column>
 							    <p:column headerText="Cliente">
 							        <h:outputText value="#{pedido.cliente.nome}" />
@@ -94,7 +150,7 @@
 							    <p:column headerText="Desconto" styleClass="Wid10">
 							        <h:outputText value="#{pedido.desconto}" />
 							    </p:column>
-							    <p:column headerText="Valor" styleClass="Wid10">
+							    <p:column headerText="Valor do Pedido" styleClass="Wid10">
 							        <h:outputText value="#{pedido.valorPedido}" />
 							    </p:column>
 							    <p:column headerText="Ações" styleClass="TexAlCenter">
@@ -102,7 +158,7 @@
 							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" id="btnSelecionar" />
 							        
 							        <p:commandButton actionListener="#{pedidoMBean.deletar(pedido)}" id="btnExcluir"
-							        	update="message singleDT" icon="fa fa-trash Fs16 White" styleClass="RedButton">
+							        	update="@form" icon="fa fa-trash Fs16 White" styleClass="RedButton">
 							        	<p:confirm header="Confirmação" message="Tem certeza?" icon="ui-icon-alert" />
 							        </p:commandButton>
 							    </p:column>

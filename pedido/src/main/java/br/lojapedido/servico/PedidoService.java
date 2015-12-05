@@ -89,5 +89,4 @@ public class PedidoService implements ICRUD<Pedido>{
 	/*
 	 * Fim: Validação de pedido
 	 */
-	
 }

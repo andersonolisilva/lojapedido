@@ -23,6 +23,7 @@ public class PedidoMBean extends AbstractController<Pedido> {
 			.getInstance().getTime(), new Cliente(), new BigDecimal("0"),
 			new BigDecimal("0"), new ArrayList<PedidoItem>());
 	private PedidoService service;
+	private PedidoItem pedidoItem = new PedidoItem();
 
 	public List<Pedido> getListaCompleta() {
 		PedidoDAO dao = new PedidoDAO();
@@ -33,6 +34,10 @@ public class PedidoMBean extends AbstractController<Pedido> {
 		}
 	}
 
+	public PedidoItem getPedidoItem(){
+		return this.pedidoItem;
+	}
+	
 	public SituacaoPedido[] getListaSituacaoPedido() {
 		return SituacaoPedido.values();
 	}
@@ -85,6 +90,36 @@ public class PedidoMBean extends AbstractController<Pedido> {
 
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
+	}
+	
+	public void novoItemPedido(){
+		this.pedidoItem = new PedidoItem();
+	}
+	public void selecionarItemPedido(PedidoItem pedidoItem){
+		this.pedidoItem = pedidoItem;
+	}
+	public void adicionarItemPedido(){
+		this.pedidoItem.setPedido(this.pedido);
+		if (this.pedido.getItensDoPedido().contains(this.pedidoItem)){
+			this.pedido.getItensDoPedido().remove(this.pedidoItem);
+		}
+		this.pedido.getItensDoPedido().add(this.pedidoItem);
+		this.pedido.setValorPedido(calculaTotalDoPedido());
+	}
+	
+	public void deletarItemPedido(PedidoItem pedidoItem){
+		this.pedido.getItensDoPedido().remove(this.pedidoItem);
+		this.pedido.setValorPedido(calculaTotalDoPedido());
+	}
+	
+	public BigDecimal calculaTotalDoPedido(){
+	    BigDecimal totalDoPedido = new BigDecimal("0"); 
+	    for(PedidoItem item : this.pedido.getItensDoPedido()){
+	    	if (item.getSubTotal().compareTo(new BigDecimal("0"))>0){
+	    		totalDoPedido = totalDoPedido.add(item.getSubTotal());
+	    	}
+	    }
+	    return totalDoPedido;
 	}
 
 }

@@ -2,11 +2,14 @@ package br.lojapedido.dominio;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,14 +32,14 @@ public class Pedido implements PersistDB{
 	@Column(name = "id", updatable = false, nullable = false)
 	private int id;
 	private SituacaoPedido situacaoPedido;
-	private Date dataPedido;
+	private Date dataPedido = Calendar.getInstance().getTime();
 	@ManyToOne
 	@JoinColumn(name="clienteId")
 	private Cliente cliente;
-	private BigDecimal desconto;
-	private BigDecimal valorPedido;
+	private BigDecimal desconto = new BigDecimal("0");
+	private BigDecimal valorPedido  = new BigDecimal("0");;
 	
-	@OneToMany(mappedBy="pedido")
+	@OneToMany(mappedBy="pedido", fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private List<PedidoItem> itensDoPedido;
 	
 	public Pedido(){}
@@ -51,5 +54,5 @@ public class Pedido implements PersistDB{
 		this.setValorPedido(valorPedido);
 		this.setItensDoPedido(pedidoItem);
 	}	
-	
+
 }
