@@ -25,6 +25,11 @@
         
         <ui:include src="topbar.xhtml" />
         
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+		        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+		        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+	    </p:confirmDialog>
+        
         <div id="wrapper">
             <div id="wrapperIndent">
 

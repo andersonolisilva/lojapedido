@@ -73,7 +73,7 @@
                         <h2 class="BigTopic">Lista</h2>
                         <p:separator styleClass="SeparatorFull" />
                         <div class="EmptyBox10"></div>
-	                    <h:form id="form">
+	                    <h:form id="tabelaPedido">
 							<p:dataTable id="singleDT" var="pedido" value="#{pedidoMBean.listaCompleta}" paginatorPosition="bottom"
 							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum pedido cadastrado" reflow="true"
@@ -99,9 +99,12 @@
 							    </p:column>
 							    <p:column headerText="Ações" styleClass="TexAlCenter">
 							        <p:commandButton action="#{pedidoMBean.selecionar(pedido)}" update="@form" 
-							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" />
-							        <p:commandButton action="#{pedidoMBean.deletar(pedido)}" onclick="return confirm('Deseja realmente deletar?')"
-							        	update="@form" ajax="false" icon="fa fa-trash Fs16 White" styleClass="RedButton" />
+							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" id="btnSelecionar" />
+							        
+							        <p:commandButton actionListener="#{pedidoMBean.deletar(pedido)}" id="btnExcluir"
+							        	update="message singleDT" icon="fa fa-trash Fs16 White" styleClass="RedButton">
+							        	<p:confirm header="Confirmação" message="Tem certeza?" icon="ui-icon-alert" />
+							        </p:commandButton>
 							    </p:column>
 							</p:dataTable>
 						</h:form>

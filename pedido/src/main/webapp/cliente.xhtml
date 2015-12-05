@@ -39,7 +39,7 @@
 		                    </div>
 		                    <div class="EmptyBox20"></div>
 		                    <div class="Container100 TexAlCenter">
-		                    	<p:commandButton value="Salvar" id="salvar" update="@form" ajax="false"
+		                    	<p:commandButton value="Salvar" id="btnSalvar" update="@form" ajax="false"
 		                    		action="#{clienteMBean.salvar}" styleClass="GreenButton" icon="fa fa-save" />
 		                    </div>
 		            	</h:form>
@@ -53,7 +53,8 @@
                         <h2 class="BigTopic">Lista</h2>
                         <p:separator styleClass="SeparatorFull" />
                         <div class="EmptyBox10"></div>
-	                    <h:form id="form">
+	                    <h:form id="tabelaCliente">
+	                    	<p:growl />
 							<p:dataTable id="singleDT" var="cliente" value="#{clienteMBean.listaCompleta}" paginatorPosition="bottom"
 							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum cliente cadastrado" reflow="true"
@@ -70,9 +71,11 @@
 							    </p:column>
 							    <p:column headerText="Ações" styleClass="TexAlCenter">
 							        <p:commandButton action="#{clienteMBean.selecionar(cliente)}" update="@form" 
-							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" />
-							        <p:commandButton action="#{clienteMBean.deletar(cliente)}" onclick="return confirm('Deseja realmente deletar?')"
-							        	update="@form" ajax="false" icon="fa fa-trash Fs16 White" styleClass="RedButton" />
+							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" id="btnSelecionar" />
+							        <p:commandButton actionListener="#{clienteMBean.deletar(cliente)}"
+							        	update="@form" ajax="true" icon="fa fa-trash Fs16 White" styleClass="RedButton" id="btnExcluir">
+							        	<p:confirm header="Confirmação" message="Tem certeza que deseja excluir?" icon="ui-icon-alert" />
+							        </p:commandButton>
 							    </p:column>
 							</p:dataTable>
 						</h:form>

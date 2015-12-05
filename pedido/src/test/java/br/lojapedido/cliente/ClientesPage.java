@@ -23,21 +23,24 @@ public class ClientesPage {
 	}
 	
 	public void cadastra(String CPF, String nome, String email) {
-		WebElement txtCPF = driver.findElement(By.name("cliente:cpf"));
-		WebElement txtNome = driver.findElement(By.name("cliente:nome"));
-		WebElement txtEmail = driver.findElement(By.name("cliente:email"));
+		WebElement txtCPF = driver.findElement(By.id("cliente:cpf"));
+		WebElement txtNome = driver.findElement(By.id("cliente:nome"));
+		WebElement txtEmail = driver.findElement(By.id("cliente:email"));
 		
 		txtCPF.sendKeys(CPF);
 		txtNome.sendKeys(nome);
 		txtEmail.sendKeys(email);
 		
-		driver.findElement(By.id("cliente:salvar")).click();
+//		driver.findElement(By.id("cliente:btnSalvar")).click();
+		txtCPF.submit();
 	}
 	
 	public void edita(String CPF, String nome, String email) {
-		WebElement txtCPF = driver.findElement(By.name("cliente:cpf"));
-		WebElement txtNome = driver.findElement(By.name("cliente:nome"));
-		WebElement txtEmail = driver.findElement(By.name("cliente:email"));
+		driver.findElement(By.id("tabelaCliente:singleDT:0:btnSelecionar"));
+		
+		WebElement txtCPF = driver.findElement(By.id("cliente:cpf"));
+		WebElement txtNome = driver.findElement(By.id("cliente:nome"));
+		WebElement txtEmail = driver.findElement(By.id("cliente:email"));
 		
 		txtCPF.clear();
 		txtCPF.sendKeys(CPF);
@@ -46,11 +49,14 @@ public class ClientesPage {
 		txtEmail.clear();
 		txtEmail.sendKeys(email);
 		
-		driver.findElement(By.id("cliente:salvar")).click();
+		driver.findElement(By.id("cliente:btnSalvar")).click();
 	}
 	
 	public void remove() {
-		driver.findElement(By.id("form:singleDT:0:j_idt45")).click();
+		driver.findElement(By.id("tabelaCliente:singleDT:0:btnExcluir")).click();
+		driver.findElement(By.id("confirm")).click();
+		
+//		driver.findElement(By.id("form:singleDT:0:j_idt45")).click();
 		// falta descobrir como pegar botão do alert ou tentar colocar o confirm do primefaces!
 	}
 	

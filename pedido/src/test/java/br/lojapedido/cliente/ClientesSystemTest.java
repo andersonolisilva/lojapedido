@@ -26,7 +26,7 @@ public class ClientesSystemTest {
 		
 		assertTrue(clientes.existeNaListagem("22222222222","Uira Kulesza","uirakulesza@gmail.com"));
 		
-		// inserir remover
+		clientes.remove();
 	}
 	
 	@Test
@@ -37,7 +37,7 @@ public class ClientesSystemTest {
 		
 		assertTrue(clientes.existeNaListagem("22222222222","Uira Kulesza","uirakulesza@hotmail.com"));
 		
-		// inserir remover
+		clientes.remove();
 	}
 	
 	@Test
