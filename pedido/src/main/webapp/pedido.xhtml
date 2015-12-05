@@ -1,0 +1,126 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="subheader">
+        Pedido
+    </ui:define>
+    
+    <ui:define name="content">
+        
+        <div class="Container100">
+        	
+        	<div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                	<div class="Container100">
+                        <h2 class="CardTopic">
+                        	Lista
+                        	<span class="Fright">
+                        		<p:button outcome="pedidoItem" value="Voltar" icon="fa fa-arrow-left" />
+                        	</span>
+                        </h2>
+                        <p:separator styleClass="SeparatorFull" />
+                        <div class="EmptyBox10"></div>
+	                    <h:form id="tabelaPedido">
+							<p:dataTable id="singleDT" var="pedido" value="#{pedidoMBean.listaCompleta}" paginatorPosition="bottom"
+							             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							             rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum pedido cadastrado" reflow="true"
+							             currentPageReportTemplate="{currentPage} de {totalPages}">
+							
+							    <p:column headerText="ID" styleClass="Wid10">
+							        <h:outputText value="#{pedido.id}" />
+							    </p:column>
+							    <p:column headerText="Situação" styleClass="Wid10">
+							        <h:outputText value="#{pedido.situacaoPedido}" />
+							    </p:column>
+							    <p:column headerText="Data" styleClass="Wid10">
+							        <h:outputText value="#{pedido.dataPedido}">
+							        	<f:convertDateTime pattern="dd/MM/yyyy"/>
+							        </h:outputText>
+							    </p:column>
+							    <p:column headerText="Cliente">
+							        <h:outputText value="#{pedido.cliente.nome}" />
+							    </p:column>
+							    <p:column headerText="Desconto" styleClass="Wid10">
+							        <h:outputText value="#{pedido.desconto}" />
+							    </p:column>
+							    <p:column headerText="Valor" styleClass="Wid10">
+							        <h:outputText value="#{pedido.valorPedido}" />
+							    </p:column>
+							    <p:column headerText="Ações" styleClass="TexAlCenter">
+							        <p:commandButton action="#{pedidoMBean.selecionar(pedido)}" update="@form" 
+							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" id="btnSelecionar" />
+							        
+							        <p:commandButton actionListener="#{pedidoMBean.deletar(pedido)}" id="btnExcluir"
+							        	update="@form" icon="fa fa-trash Fs16 White" styleClass="RedButton">
+							        	<p:confirm header="Confirmação" message="Tem certeza que deseja excluir?" icon="ui-icon-alert" />
+							        </p:commandButton>
+							    </p:column>
+							</p:dataTable>
+						</h:form>
+					</div>
+                </div>
+            </div>
+            
+        	<div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                	<div class="Container100">
+                		<h:form>
+                			<h:inputHidden value="#{pedidoMBean.pedido.id}" />
+                			<p:growl />
+	                        <h2 class="CardTopic">Cadastro</h2>
+	                        <p:separator styleClass="SeparatorFull" />
+	                        <div class="EmptyBox10"></div>
+		                    <div class="Container20 Responsive100">
+	            				<h:outputLabel for="situacaoPedido" value="Situação:" styleClass="DispBlock FontBold" />
+						        <p:selectOneMenu id="situacaoPedido" value="#{pedidoMBean.pedido.situacaoPedido}">
+	            					<f:selectItems value="#{pedidoMBean.listaSituacaoPedido}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao}" />
+						        </p:selectOneMenu>
+		                    </div>
+		                    <div class="Container20 Responsive100">
+	            				<h:outputLabel for="data" value="Data:" styleClass="DispBlock FontBold" />
+	        					<p:calendar id="data" value="#{pedidoMBean.pedido.dataPedido}"
+	        						required="true" requiredMessage="Campo data é obrigatório" />
+							</div>
+		                    <div class="Container20 Responsive100">
+	            				<h:outputLabel for="cliente" value="Cliente:" styleClass="DispBlock FontBold" />
+						        <p:selectOneMenu id="cliente" value="#{pedidoMBean.pedido.cliente}" converter="clienteSelectOneMenuConverter">
+	            					<f:selectItems value="#{clienteMBean.listaCompleta}" var="cliente" itemValue="#{cliente}" itemLabel="#{cliente.nome}" />
+						        </p:selectOneMenu>
+		                    </div>
+		                    <div class="Container20 Responsive100">
+		                    	<h:outputLabel for="desconto" value="Desconto:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="desconto" value="#{pedidoMBean.pedido.desconto}"
+	            					required="true" requiredMessage="Campo desconto é obrigatório">
+	            				  <f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
+	            						maxFractionDigits="2" pattern="#,##0.00"/>
+	            				</p:inputText>
+		                    </div>
+		                    <div class="Container20 Responsive100">
+		                    	<h:outputLabel for="valorPedido" value="Valor do Pedido:" styleClass="DispBlock FontBold" />
+	            				<p:inputText id="valorPedido" value="#{pedidoMBean.pedido.valorPedido}"
+	            					required="true" requiredMessage="Campo valor do pedido é obrigatório">
+	            				<f:convertNumber type="currency" currencySymbol="R$" groupingUsed="true"
+	            						maxFractionDigits="2" pattern="#,##0.00" />
+	            				</p:inputText>
+		                    </div>
+		                    
+		                    <div class="EmptyBox20"></div>
+		                    
+		                    <div class="Container100 TexAlCenter">
+								<p:commandButton value="Salvar Pedido" id="salvar"
+									update="@form" ajax="false" action="#{pedidoMBean.salvar}"
+									styleClass="GreenButton" icon="fa fa-save" />
+							</div>
+		            	</h:form>
+					</div>
+                </div>
+            </div>
+        </div>
+        
+    </ui:define>
+
+</ui:composition>
