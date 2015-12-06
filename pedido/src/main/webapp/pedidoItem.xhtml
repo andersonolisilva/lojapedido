@@ -16,8 +16,8 @@
 				<div class="Card ShadowEffect">
 					<div class="Container100">
 						<h:form>
-							<h:inputHidden value="#{pedidoMBean.pedido.id}" />
 							<p:growl />
+							<h:inputHidden value="#{pedidoMBean.pedido.id}" />
 							<h2 class="CardTopic">
 								Cadastro de Pedido
 								<span class="Fright">
@@ -67,11 +67,15 @@
 			                <h2 class="BigTopic">Cadastro de Item</h2>
 							<p:separator styleClass="SeparatorFull" />
 			                
-			                <!-- <h:panelGroup rendered=""> -->
+			                <h:panelGroup rendered="#{not pedidoMBean.novoItemPedido()}">
+			                	<!-- não mostra o cadastro de Itens -->
+							</h:panelGroup>
+							
+							<h:panelGroup rendered="#{pedidoMBean.novoItemPedido()}">
 			                	<div class="EmptyBox10"></div>
 								<div class="Container100">
 									<div class="Container20 Responsive100">
-										<h:outputLabel for="produtoDoItem" value="Produto:"
+										<h:outputLabel for="produto" value="Produto:"
 											styleClass="DispBlock FontBold" />
 										<p:selectOneMenu id="produto"
 											value="#{pedidoMBean.pedidoItem.produto}"
@@ -97,21 +101,29 @@
 										</p:inputText>
 									</div>
 								</div>
-							<!-- </h:panelGroup> -->
+							</h:panelGroup>
 							
 							<div class="EmptyBox20"></div>
 							
 							<div class="Container100">
+								
 								<div class="Container50 Responsive100">
 									<p:commandButton value="Novo Item" id="NovoItem" update="@form"
 										ajax="false" action="#{pedidoMBean.novoItemPedido()}" icon="fa fa-plus" />
 								</div>
-								<div class="Container50 Responsive100 TexAlRight">
-									<p:commandButton value="Salvar Item" id="salvarItem"
-										update="@form" ajax="false"
-										action="#{pedidoMBean.adicionarItemPedido()}"
-										styleClass="GreenButton" icon="fa fa-save" />
-								</div>
+								
+								<h:panelGroup rendered="#{not pedidoMBean.novoItemPedido()}">
+									<!-- não mostra botão de salvar item -->
+								</h:panelGroup>
+								
+								<h:panelGroup rendered="#{pedidoMBean.novoItemPedido()}">
+									<div class="Container50 Responsive100 TexAlRight">
+										<p:commandButton value="Salvar Item" id="salvarItem"
+											update="@form" ajax="false" 
+											action="#{pedidoMBean.adicionarItemPedido()}"
+											styleClass="GreenButton" icon="fa fa-save" />
+									</div>
+								</h:panelGroup>
 							</div>
 							
 							<div class="EmptyBox10"></div>
@@ -136,6 +148,7 @@
 						<p:separator styleClass="SeparatorFull" />
 						<div class="EmptyBox10"></div>
 						<h:form id="tabelaPedido">
+							<p:growl />
 							<p:dataTable id="tableItemPedido" var="pedidoItem"
 								value="#{pedidoMBean.pedido.itensDoPedido}"
 								paginatorPosition="bottom" rows="10" paginator="true"
@@ -144,7 +157,7 @@
 								emptyMessage="Pedido sem item cadastrado" reflow="true"
 								currentPageReportTemplate="{currentPage} de {totalPages}">
 
-								<p:column headerText="Produto" styleClass="Wid20">
+								<p:column headerText="Produto">
 									<h:outputText value="#{pedidoItem.produto.descricao}" />
 								</p:column>
 								<p:column headerText="Quantidade" styleClass="Wid10">
@@ -156,7 +169,7 @@
 								<p:column headerText="SubTotal" styleClass="Wid10">
 									<h:outputText value="#{pedidoItem.subTotal}" />
 								</p:column>
-								<p:column headerText="Ações" styleClass="TexAlCenter">
+								<p:column headerText="Ações" styleClass="TexAlCenter Wid20">
 									<p:commandButton
 										action="#{pedidoMBean.selecionarItemPedido(pedidoItem)}"
 										update="@form" ajax="false" icon="fa fa-edit"

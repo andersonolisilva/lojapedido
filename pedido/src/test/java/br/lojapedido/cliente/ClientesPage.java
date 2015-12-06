@@ -22,6 +22,10 @@ public class ClientesPage {
 				driver.getPageSource().contains(email);
 	}
 	
+	public boolean existeCpfDuplicado() {
+		return driver.getPageSource().contains("Revise a informação do cliente e tente novamente: Error while committing the transaction");
+	}
+	
 	public void cadastra(String cpf, String nome, String email) {
 		WebElement txtCpf = driver.findElement(By.id("cliente:cpf"));
 		WebElement txtNome = driver.findElement(By.id("cliente:nome"));

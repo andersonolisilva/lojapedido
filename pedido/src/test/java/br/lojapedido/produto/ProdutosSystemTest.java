@@ -49,6 +49,14 @@ public class ProdutosSystemTest {
 		assertFalse(produtos.existeNaListagem("iPhone 6", 2800.00, 1.00));
 	}
 	
+	@Test
+	public void deveExistirDescricao() {
+		produtos.visita();
+		produtos.cadastra(null, 10.00, 50);
+		
+		assertTrue(produtos.existeDescricao());
+	}
+	
 	@After
 	public void finaliza() {
 		driver.close();

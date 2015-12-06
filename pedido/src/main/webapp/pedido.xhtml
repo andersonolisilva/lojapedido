@@ -50,8 +50,8 @@
 							    <p:column headerText="Valor" styleClass="Wid10">
 							        <h:outputText value="#{pedido.valorPedido}" />
 							    </p:column>
-							    <p:column headerText="Ações" styleClass="TexAlCenter">
-							        <p:commandButton action="#{pedidoMBean.selecionar(pedido)}" update="@form" 
+							    <p:column headerText="Ações" styleClass="TexAlCenter Wid20">
+							        <p:commandButton action="#{pedidoMBean.selecionar(pedido)}" 
 							        	ajax="false" icon="fa fa-edit" styleClass="MarRight10" id="btnSelecionar" />
 							        
 							        <p:commandButton actionListener="#{pedidoMBean.deletar(pedido)}" id="btnExcluir"

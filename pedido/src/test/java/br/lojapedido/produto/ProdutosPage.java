@@ -22,6 +22,10 @@ public class ProdutosPage {
 				driver.getPageSource().contains(String.valueOf(quantidadeEstoque));
 	}
 	
+	public boolean existeDescricao() {
+		return driver.getPageSource().contains("Campo descrição é obrigatório");
+	}
+	
 	public void cadastra(String descricao, double valor, double quantidadeEstoque) {
 		WebElement txtDescricao = driver.findElement(By.id("produto:descricao"));
 		WebElement txtValor = driver.findElement(By.id("produto:valor"));

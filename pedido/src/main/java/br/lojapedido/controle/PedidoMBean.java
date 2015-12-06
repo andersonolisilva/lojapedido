@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import br.lojapedido.dao.PedidoDAO;
 import br.lojapedido.dominio.Cliente;
@@ -16,7 +16,7 @@ import br.lojapedido.dominio.enumerador.SituacaoPedido;
 import br.lojapedido.servico.PedidoService;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class PedidoMBean extends AbstractController<Pedido> {
 
 	private Pedido pedido = new Pedido(SituacaoPedido.ABERTO, Calendar
@@ -59,13 +59,13 @@ public class PedidoMBean extends AbstractController<Pedido> {
 			dao.close();
 		}
 
-		return null;
+		return "pedido";
 	}
 
 	public String selecionar(Pedido pedido) {
 		this.pedido = pedido;
 
-		return null;
+		return "pedidoItem";
 	}
 
 	public String deletar(Pedido pedido) {
