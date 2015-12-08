@@ -24,6 +24,7 @@ public class PedidoMBean extends AbstractController<Pedido> {
 			new BigDecimal("0"), new ArrayList<PedidoItem>());
 	private PedidoService service;
 	private PedidoItem pedidoItem = new PedidoItem();
+	private StateForm formPedidoItem = new StateForm();
 
 	public List<Pedido> getListaCompleta() {
 		PedidoDAO dao = new PedidoDAO();
@@ -64,7 +65,7 @@ public class PedidoMBean extends AbstractController<Pedido> {
 
 	public String selecionar(Pedido pedido) {
 		this.pedido = pedido;
-
+		this.formPedidoItem.controleForm("listar");
 		return "pedidoItem";
 	}
 
@@ -89,11 +90,19 @@ public class PedidoMBean extends AbstractController<Pedido> {
 		this.pedido = pedido;
 	}
 	
+	public void novoPedido(){
+		this.pedido = new Pedido();
+		this.pedido.setItensDoPedido(new ArrayList<PedidoItem>());
+		this.formPedidoItem.controleForm("listar");
+	}
+	
 	public void novoItemPedido(){
 		this.pedidoItem = new PedidoItem();
+		this.formPedidoItem.controleForm("adicionar");
 	}
 	public void selecionarItemPedido(PedidoItem pedidoItem){
 		this.pedidoItem = pedidoItem;
+		this.formPedidoItem.controleForm("editar");
 	}
 	public void adicionarItemPedido(){
 		this.pedidoItem.setPedido(this.pedido);
@@ -103,11 +112,13 @@ public class PedidoMBean extends AbstractController<Pedido> {
 		this.pedidoItem.setSubTotal(calculaTotalItemPedido(this.pedidoItem));
 		this.pedido.getItensDoPedido().add(this.pedidoItem);
 		this.pedido.setValorPedido(calculaTotalDoPedido());
+		this.formPedidoItem.controleForm("listar");
 	}
 	
 	public void deletarItemPedido(PedidoItem pedidoItem){
 		this.pedido.getItensDoPedido().remove(this.pedidoItem);
 		this.pedido.setValorPedido(calculaTotalDoPedido());
+		this.formPedidoItem.controleForm("listar");
 	}
 	
 	public BigDecimal calculaTotalDoPedido(){
@@ -125,4 +136,7 @@ public class PedidoMBean extends AbstractController<Pedido> {
 		return pedidoItem.getSubTotal();
 	}
 
+	public StateForm getFormPedidoItem() {
+		return formPedidoItem;
+	}
 }
