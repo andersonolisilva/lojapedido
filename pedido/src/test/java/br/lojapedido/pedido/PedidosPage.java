@@ -17,19 +17,19 @@ public class PedidosPage {
 		driver.get("http://localhost:8080/pedido/pedidoItem.xhtml");
 	}
 	
-	public void novoItem() {
+	public PedidosPage novoItem() {
 		driver.findElement(By.id("pedido:NovoItem")).click();
+		return new PedidosPage(driver);
 	}
 	
-	public boolean existeNaListagem(String produto, double valorVenda, int quantidade, double subTotal) {
+	public boolean existeNaListagem(String produto, double valorVenda, double quantidade, double subTotal) {
 		return driver.getPageSource().contains(produto) &&
 				driver.getPageSource().contains(String.valueOf(valorVenda)) &&
 				driver.getPageSource().contains(String.valueOf(quantidade)) &&
 				driver.getPageSource().contains(String.valueOf(subTotal));
 	}
 	
-	public void cadastra(String produto, double valorVenda, int quantidade) {
-		
+	public void cadastra(String produto, double valorVenda, double quantidade) {
 		
 		/*WebElement txtProduto = driver.findElement(By.id("pedido:produto"));*/
 		
@@ -46,7 +46,7 @@ public class PedidosPage {
 		txtValorVenda.submit();
 	}
 	
-	public void edita(String produto, double valorVenda, int quantidade) {
+	public void edita(String produto, double valorVenda, double quantidade) {
 		driver.findElement(By.id("tabelaPedido:tableItemPedido:0:btnSelecionarItem"));
 		
 		WebElement txtValorVenda = driver.findElement(By.id("pedido:valorVenda"));

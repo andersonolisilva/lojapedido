@@ -22,7 +22,7 @@ public class PedidosSystemTest {
 	@Test
 	public void deveAdicionarUmItem() {
 		pedidos.visita();
-		pedidos.novoItem();
+		pedidos.novoItem().cadastra("iPhone 6 16GB", 2800.00, 1);
 		pedidos.cadastra("iPhone 6 16GB", 2800.00, 1);
 		
 		assertTrue(pedidos.existeNaListagem("iPhone 6 16GB", 2800.00, 1, 2800.00));
@@ -33,8 +33,7 @@ public class PedidosSystemTest {
 	@Test
 	public void deveEditarUmItem() {
 		pedidos.visita();
-		pedidos.novoItem();
-		pedidos.cadastra("iPhone 6 16GB", 2800.00, 1);
+		pedidos.novoItem().cadastra("iPhone 6 16GB", 2800.00, 1);
 		pedidos.edita("iPhone 6 16GB", 2800.00, 2);
 		
 		assertTrue(pedidos.existeNaListagem("iPhone 6 16GB", 2800.00, 2, 5600.00));
@@ -45,8 +44,7 @@ public class PedidosSystemTest {
 	@Test
 	public void deveRemoverUmItem() {
 		pedidos.visita();
-		pedidos.novoItem();
-		pedidos.cadastra("iPhone 6 16GB", 2800.00, 1);
+		pedidos.novoItem().cadastra("iPhone 6 16GB", 2800.00, 1);
 		pedidos.remove();
 		
 		assertFalse(pedidos.existeNaListagem("iPhone 6 16GB", 2800.00, 1, 2800.00));
