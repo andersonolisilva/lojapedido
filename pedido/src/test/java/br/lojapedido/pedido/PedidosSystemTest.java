@@ -1,5 +1,6 @@
 package br.lojapedido.pedido;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -21,20 +22,20 @@ public class PedidosSystemTest {
 	@Test
 	public void deveAdicionarUmItem() {
 		pedidos.visita();
-		pedidos.novoItem().cadastra("iPhone 6" , 1.00 , 2800.00);
+		pedidos.novoItem().cadastra("iPhone 6" , "1", "2800");
 		
-		assertTrue(pedidos.existeNaListagem("iPhone 6", 1.00 , 2800.00 , 2800.00));
+		assertTrue(pedidos.existeNaListagem("iPhone 6", "1", "2800", "2800"));
 		
 		pedidos.remove();
 	}
 	
-	/*@Test
+	@Test
 	public void deveEditarUmItem() {
 		pedidos.visita();
-		pedidos.novoItem().cadastra("iPhone 6", 1.00, 2800.00);
-		pedidos.mudaItem().edita("iPhone 6", 2.00, 2800.00);
+		pedidos.novoItem().cadastra("iPhone 6", "1", "2800");
+		pedidos.mudaItem().edita("iPhone 6", "2", "2800");
 		
-		assertTrue(pedidos.existeNaListagem("iPhone 6", 2.00, 2800.00, 5600.00));
+		assertTrue(pedidos.existeNaListagem("iPhone 6", "2", "2800", "5600"));
 		
 		pedidos.remove();
 	}
@@ -42,11 +43,11 @@ public class PedidosSystemTest {
 	@Test
 	public void deveRemoverUmItem() {
 		pedidos.visita();
-		pedidos.novoItem().cadastra("iPhone 6", 1.00, 2800.00);
+		pedidos.novoItem().cadastra("iPhone 6", "1", "2800");
 		pedidos.remove();
 		
-		assertFalse(pedidos.existeNaListagem("iPhone 6", 1.00, 2800.00, 2800.00));
-	}*/
+		assertFalse(pedidos.existeNaListagem("iPhone 6", "1", "2800", "2800"));
+	}
 	
 	@After
 	public void finaliza() {

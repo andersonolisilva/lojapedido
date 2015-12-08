@@ -22,9 +22,9 @@ public class ProdutosSystemTest {
 	@Test
 	public void deveAdicionarUmProduto() {
 		produtos.visita();
-		produtos.cadastra("iPhone 6", 2800.00, 1.00);
+		produtos.cadastra("iPhone 6", "2800", "1");
 		
-		assertTrue(produtos.existeNaListagem("iPhone 6", 2800.00, 1.00));
+		assertTrue(produtos.existeNaListagem("iPhone 6", "2800", "1"));
 		
 		produtos.remove();
 	}
@@ -32,10 +32,10 @@ public class ProdutosSystemTest {
 	@Test
 	public void deveEditarUmProduto() {
 		produtos.visita();
-		produtos.cadastra("iPhone 6", 2800.00, 1.00);
-		produtos.edita("iPhone 6", 2800.00, 3.00);
+		produtos.cadastra("iPhone 6", "2800", "1");
+		produtos.edita("iPhone 6", "2800", "3");
 		
-		assertTrue(produtos.existeNaListagem("iPhone 6", 2800.00, 3.00));
+		assertTrue(produtos.existeNaListagem("iPhone 6", "2800", "3"));
 		
 		produtos.remove();
 	}
@@ -43,16 +43,16 @@ public class ProdutosSystemTest {
 	@Test
 	public void deveRemoverUmProduto() {
 		produtos.visita();
-		produtos.cadastra("iPhone 6", 2800.00, 1.00);
+		produtos.cadastra("iPhone 6", "2800", "1");
 		produtos.remove();
 		
-		assertFalse(produtos.existeNaListagem("iPhone 6", 2800.00, 1.00));
+		assertFalse(produtos.existeNaListagem("iPhone 6", "2800", "1"));
 	}
 	
 	@Test
 	public void deveExistirDescricao() {
 		produtos.visita();
-		produtos.cadastra(null, 10.00, 50);
+		produtos.cadastra(null, "10", "50");
 		
 		assertTrue(produtos.existeDescricao());
 	}

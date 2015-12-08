@@ -32,10 +32,10 @@ public class ClientesSystemTest {
 	@Test
 	public void deveEditarUmCliente() {
 		clientes.visita();
-		clientes.cadastra("22222222222", "Uira Kulesza", "uirakulesza@gmail.com");
-		clientes.edita("22222222222", "Uira Kulesza", "uirakulesza@hotmail.com");
+		clientes.cadastra("11111111111", "Uira Kulesza", "uirakulesza@gmail.com");
+		clientes.edita("11111111111", "Uira Kulesza", "uirakulesza@hotmail.com");
 		
-		assertTrue(clientes.existeNaListagem("22222222222", "Uira Kulesza", "uirakulesza@hotmail.com"));
+		assertTrue(clientes.existeNaListagem("11111111111", "Uira Kulesza", "uirakulesza@hotmail.com"));
 		
 		clientes.remove();
 	}
@@ -43,17 +43,17 @@ public class ClientesSystemTest {
 	@Test
 	public void deveRemoverUmCliente() {
 		clientes.visita();
-		clientes.cadastra("22222222222", "Uira Kulesza", "uirakulesza@gmail.com");
+		clientes.cadastra("11111111111", "Uira Kulesza", "uirakulesza@gmail.com");
 		clientes.remove();
 		
-		assertFalse(clientes.existeNaListagem("22222222222", "Uira Kulesza", "uirakulesza@gmail.com"));
+		assertFalse(clientes.existeNaListagem("11111111111", "Uira Kulesza", "uirakulesza@gmail.com"));
 	}
 	
 	@Test
 	public void deveVerificarCpfExistente() {
 		clientes.visita();
-		clientes.cadastra("11111111111", "Daniel Olinto", "danielolinto31@gmail.com");
-		clientes.cadastra("11111111111", "Anderson Oliveira", "andersonolisilva@gmail.com");
+		clientes.cadastra("33333333333", "Daniel Olinto", "danielolinto31@gmail.com");
+		clientes.cadastra("33333333333", "Anderson Oliveira", "andersonolisilva@gmail.com");
 		
 		assertTrue(clientes.existeCpfDuplicado());
 		

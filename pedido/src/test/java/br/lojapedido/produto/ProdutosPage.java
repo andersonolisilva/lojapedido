@@ -16,29 +16,29 @@ public class ProdutosPage {
 		driver.get("http://localhost:8080/pedido/produto.xhtml");
 	}
 	
-	public boolean existeNaListagem(String descricao, double valor, double quantidadeEstoque) {
+	public boolean existeNaListagem(String descricao, String valor, String quantidadeEstoque) {
 		return driver.getPageSource().contains(descricao) &&
-				driver.getPageSource().contains(String.valueOf(valor)) &&
-				driver.getPageSource().contains(String.valueOf(quantidadeEstoque));
+				driver.getPageSource().contains(valor) &&
+				driver.getPageSource().contains(quantidadeEstoque);
 	}
 	
 	public boolean existeDescricao() {
 		return driver.getPageSource().contains("Campo descrição é obrigatório");
 	}
 	
-	public void cadastra(String descricao, double valor, double quantidadeEstoque) {
+	public void cadastra(String descricao, String valor, String quantidadeEstoque) {
 		WebElement txtDescricao = driver.findElement(By.id("produto:descricao"));
 		WebElement txtValor = driver.findElement(By.id("produto:valor"));
 		WebElement txtQuantidadeEstoque = driver.findElement(By.id("produto:quantidadeEstoque"));
 		
 		txtDescricao.sendKeys(descricao);
-		txtValor.sendKeys(String.valueOf(valor));
-		txtQuantidadeEstoque.sendKeys(String.valueOf(quantidadeEstoque));
+		txtValor.sendKeys(valor);
+		txtQuantidadeEstoque.sendKeys(quantidadeEstoque);
 		
 		driver.findElement(By.id("produto:btnSalvar")).click();
 	}
 	
-	public void edita(String descricao, double valor, double quantidadeEstoque) {
+	public void edita(String descricao, String valor, String quantidadeEstoque) {
 		driver.findElement(By.id("tabelaProduto:singleDT:0:btnSelecionar"));
 		
 		WebElement txtDescricao = driver.findElement(By.id("produto:descricao"));
@@ -48,9 +48,9 @@ public class ProdutosPage {
 		txtDescricao.clear();
 		txtDescricao.sendKeys(descricao);
 		txtValor.clear();
-		txtValor.sendKeys(String.valueOf(valor));
+		txtValor.sendKeys(valor);
 		txtQuantidadeEstoque.clear();
-		txtQuantidadeEstoque.sendKeys(String.valueOf(quantidadeEstoque));
+		txtQuantidadeEstoque.sendKeys(quantidadeEstoque);
 		
 		driver.findElement(By.id("produto:btnSalvar")).click();
 	}

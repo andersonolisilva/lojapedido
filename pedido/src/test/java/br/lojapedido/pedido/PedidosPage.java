@@ -25,19 +25,16 @@ public class PedidosPage {
 		return new NovoPedidoPage(driver);
 	}
 	
-	public boolean existeNaListagem(String produto, Double quantidade, Double valorVenda, Double subTotal) {
+	public boolean existeNaListagem(String produto, String quantidade, String valorVenda, String subTotal) {
 		return driver.getPageSource().contains(produto) &&
-				driver.getPageSource().contains(String.valueOf(quantidade)) &&
-				driver.getPageSource().contains(String.valueOf(valorVenda)) &&
-				driver.getPageSource().contains(String.valueOf(subTotal));
+				driver.getPageSource().contains(quantidade) &&
+				driver.getPageSource().contains(valorVenda) &&
+				driver.getPageSource().contains(subTotal);
 	}
 	
 	public void remove() {
 		driver.findElement(By.id("tabelaPedido:tableItemPedido:0:btnExcluirItem")).click();
 		driver.findElement(By.id("btnSim")).click();
-		
-//		driver.findElement(By.id("form:singleDT:0:j_idt45")).click();
-		// falta descobrir como pegar botão do alert ou tentar colocar o confirm do primefaces!
 	}
 	
 }

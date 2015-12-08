@@ -13,7 +13,7 @@ public class NovoPedidoPage {
 		this.driver = driver;
 	}
 	
-	public void cadastra(String produto, Double quantidade, Double valorVenda) {
+	public void cadastra(String produto, String quantidade, String valorVenda) {
 		Select cbProduto = new Select(driver.findElement(By.name("pedido:produto_input")));
 		cbProduto.selectByVisibleText(produto);
 		
@@ -21,24 +21,24 @@ public class NovoPedidoPage {
 		WebElement txtValorVenda = driver.findElement(By.id("pedido:valorDoItem"));
 		
 		txtQuantidade.clear();
-		txtQuantidade.sendKeys(String.valueOf(quantidade));
+		txtQuantidade.sendKeys(quantidade);
 		txtValorVenda.clear();
-		txtValorVenda.sendKeys(String.valueOf(valorVenda));
+		txtValorVenda.sendKeys(valorVenda);
 		
 		driver.findElement(By.id("pedido:salvarItem")).click();
 	}
 	
-	public void edita(String produto, Double quantidade, Double valorVenda) {
+	public void edita(String produto, String quantidade, String valorVenda) {
 		Select cbProduto = new Select(driver.findElement(By.id("pedido:produto_input")));
 		cbProduto.selectByVisibleText(produto);
 		
-		WebElement txtQuantidade = driver.findElement(By.id("pedido:quantidade"));
-		WebElement txtValorVenda = driver.findElement(By.id("pedido:valorVenda"));
+		WebElement txtQuantidade = driver.findElement(By.id("pedido:quantidadeDoItem"));
+		WebElement txtValorVenda = driver.findElement(By.id("pedido:valorDoItem"));
 		
 		txtQuantidade.clear();
-		txtQuantidade.sendKeys(String.valueOf(quantidade));
+		txtQuantidade.sendKeys(quantidade);
 		txtValorVenda.clear();
-		txtValorVenda.sendKeys(String.valueOf(valorVenda));
+		txtValorVenda.sendKeys(valorVenda);
 		
 		driver.findElement(By.id("pedido:salvarItem")).click();
 	}
