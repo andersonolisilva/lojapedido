@@ -32,8 +32,8 @@ public class PedidoItem implements PersistDB{
 	@JoinColumn(name = "produtoId")
 	private Produto produto;
 	private BigDecimal valorVenda = new BigDecimal("0");
-	private BigDecimal quantidade = new BigDecimal("0");;
-	private BigDecimal subTotal = new BigDecimal("0");;
+	private BigDecimal quantidade = new BigDecimal("0");
+	private BigDecimal subTotal = new BigDecimal("0");
 	
 	public PedidoItem(){}
 	
