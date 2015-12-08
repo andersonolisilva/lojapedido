@@ -39,7 +39,7 @@ public class ProdutosPage {
 	}
 	
 	public void edita(String descricao, String valor, String quantidadeEstoque) {
-		driver.findElement(By.id("tabelaProduto:singleDT:0:btnSelecionar"));
+		driver.findElement(By.id("tabelaProduto:singleDT:0:btnSelecionar")).click();
 		
 		WebElement txtDescricao = driver.findElement(By.id("produto:descricao"));
 		WebElement txtValor = driver.findElement(By.id("produto:valor"));

@@ -60,6 +60,10 @@
 							        	<p:confirm header="Confirmação" message="Tem certeza que deseja excluir?" icon="ui-icon-alert" />
 							        </p:commandButton>
 							    </p:column>
+							    
+							    <f:facet name="footer">
+							    	<h:outputText value="Total de pedidos: #{pedidoMBean.listaCompleta.size()}" />
+							    </f:facet>
 							</p:dataTable>
 						</h:form>
 					</div>

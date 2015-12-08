@@ -22,9 +22,9 @@ public class ClientesPage {
 				driver.getPageSource().contains(email);
 	}
 	
-	public boolean existeCpfDuplicado() {
+	/*public boolean existeCpfDuplicado() {
 		return driver.getPageSource().contains("Revise a informação do cliente e tente novamente: Error while committing the transaction");
-	}
+	}*/
 	
 	public void cadastra(String cpf, String nome, String email) {
 		WebElement txtCpf = driver.findElement(By.id("cliente:cpf"));
@@ -39,7 +39,7 @@ public class ClientesPage {
 	}
 	
 	public void edita(String CPF, String nome, String email) {
-		driver.findElement(By.id("tabelaCliente:singleDT:0:btnSelecionar"));
+		driver.findElement(By.id("tabelaCliente:singleDT:0:btnSelecionar")).click();
 		
 		WebElement txtCPF = driver.findElement(By.id("cliente:cpf"));
 		WebElement txtNome = driver.findElement(By.id("cliente:nome"));

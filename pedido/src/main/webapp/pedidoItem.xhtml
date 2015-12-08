@@ -171,6 +171,10 @@
 											icon="ui-icon-alert" />
 									</p:commandButton>
 								</p:column>
+								
+								<f:facet name="footer">
+							    	<h:outputText value="Total de itens: #{pedidoMBean.pedido.itensDoPedido.size()}" />
+							    </f:facet>
 							</p:dataTable>
 						</h:form>
 					</div>
