@@ -18,29 +18,18 @@
 						<h:form>
 							<p:growl />
 							<h:inputHidden value="#{pedidoMBean.pedido.id}" />
-							<h2 class="CardTopic">
+							<h2 class="BigTopic Fleft">
 								Cadastro de Pedido
-								
-								<span class="Fright">
-								   <p:commandButton value="Salvar Pedido" id="salvar"
+								<span class="EmptyBox10"></span>
+							</h2>
+							<div class="Fright">
+								<p:button outcome="pedido" value="Visualizar Pedidos" styleClass="CyanButton" icon="fa fa-arrow-right" />
+								<p:commandButton value="Novo Pedido" id="NovoPedido" update="@form"
+									ajax="false" action="#{pedidoMBean.novoPedido()}" icon="fa fa-plus" />
+                        		<p:commandButton value="Salvar Pedido" id="salvar"
 									update="@form" ajax="false" action="#{pedidoMBean.salvar}"
 									styleClass="GreenButton" icon="fa fa-save" />
-								</span>
-								
-								<span class="Fright">
-									<p:commandButton value="Novo Pedido" id="NovoPedido" update="@form"
-										ajax="false" action="#{pedidoMBean.novoPedido()}" icon="fa fa-plus" />
-								</span>
-								
-								<span class="Fright">
-									<p:commandButton value="Novo Item" id="NovoItem" update="@form"
-										ajax="false" action="#{pedidoMBean.novoItemPedido()}" icon="fa fa-plus" />
-								</span>
-								
-								<span class="Fright">
-	                        		<p:button outcome="pedido" value="Visualizar Pedidos" icon="fa fa-arrow-right" />
-	                        	</span>
-							</h2>
+							</div>
 							<p:separator styleClass="SeparatorFull" />
 							<div class="EmptyBox10"></div>
 							<div class="Container100">
@@ -81,9 +70,18 @@
 			                
 			                <div class="EmptyBox20"></div>
 			                <div class="EmptyBox20"></div>
-			                <h2 class="BigTopic">Cadastro de Item</h2>
+			                <div class="EmptyBox20"></div>
+			                <h2 class="BigTopic Fleft">
+								Cadastro de Item
+								<span class="EmptyBox10"></span>
+							</h2>
+							<div class="Fright">
+								<p:commandButton value="Novo Item" id="NovoItem" update="@form"
+									ajax="false" action="#{pedidoMBean.novoItemPedido()}" icon="fa fa-plus" />
+							</div>
 							<p:separator styleClass="SeparatorFull" />
-							
+							<div class="EmptyBox10"></div>
+								
 							<h:panelGroup rendered="#{pedidoMBean.formPedidoItem.registroNovo || pedidoMBean.formPedidoItem.registroEdicao}">
 			                	<div class="EmptyBox10"></div>
 								<div class="Container100">
@@ -117,13 +115,11 @@
 							
 							<div class="EmptyBox20"></div>
 							
-							<div class="Container100">
-									<div class="Container50 Responsive100 TexAlRight">
-										<p:commandButton value="Salvar Item" id="salvarItem"
-											update="@form" ajax="false" 
-											action="#{pedidoMBean.adicionarItemPedido()}"
-											styleClass="GreenButton" icon="fa fa-save" />
-									</div>
+							<div class="Container100 TexAlCenter">
+								<p:commandButton value="Salvar Item" id="salvarItem"
+									update="@form" ajax="false" 
+									action="#{pedidoMBean.adicionarItemPedido()}"
+									styleClass="GreenButton" icon="fa fa-save" />
 							</div>
 							</h:panelGroup>
 							
