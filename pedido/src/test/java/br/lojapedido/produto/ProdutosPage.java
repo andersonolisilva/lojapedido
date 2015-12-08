@@ -35,8 +35,7 @@ public class ProdutosPage {
 		txtValor.sendKeys(String.valueOf(valor));
 		txtQuantidadeEstoque.sendKeys(String.valueOf(quantidadeEstoque));
 		
-//		driver.findElement(By.id("cliente:btnSalvar")).click();
-		txtDescricao.submit();
+		driver.findElement(By.id("produto:btnSalvar")).click();
 	}
 	
 	public void edita(String descricao, double valor, double quantidadeEstoque) {
@@ -59,9 +58,6 @@ public class ProdutosPage {
 	public void remove() {
 		driver.findElement(By.id("tabelaProduto:singleDT:0:btnExcluir")).click();
 		driver.findElement(By.id("btnSim")).click();
-		
-//		driver.findElement(By.id("form:singleDT:0:j_idt45")).click();
-		// falta descobrir como pegar botão do alert ou tentar colocar o confirm do primefaces!
 	}
 	
 }

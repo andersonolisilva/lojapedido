@@ -55,7 +55,6 @@ public class ClientesSystemTest {
 		clientes.cadastra("11111111111", "Daniel Olinto", "danielolinto31@gmail.com");
 		clientes.cadastra("11111111111", "Anderson Oliveira", "andersonolisilva@gmail.com");
 		
-//		assertFalse(clientes.existeNaListagem("11111111111", "Anderson Oliveira", "andersonolisilva@gmail.com"));
 		assertTrue(clientes.existeCpfDuplicado());
 		
 		clientes.remove();

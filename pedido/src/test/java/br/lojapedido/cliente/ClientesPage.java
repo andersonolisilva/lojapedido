@@ -35,8 +35,7 @@ public class ClientesPage {
 		txtNome.sendKeys(nome);
 		txtEmail.sendKeys(email);
 		
-//		driver.findElement(By.id("cliente:btnSalvar")).click();
-		txtCpf.submit();
+		driver.findElement(By.id("cliente:btnSalvar")).click();
 	}
 	
 	public void edita(String CPF, String nome, String email) {
@@ -59,9 +58,6 @@ public class ClientesPage {
 	public void remove() {
 		driver.findElement(By.id("tabelaCliente:singleDT:0:btnExcluir")).click();
 		driver.findElement(By.id("btnSim")).click();
-		
-//		driver.findElement(By.id("form:singleDT:0:j_idt45")).click();
-		// falta descobrir como pegar botão do alert ou tentar colocar o confirm do primefaces!
 	}
 	
 }
