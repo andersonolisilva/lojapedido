@@ -26,30 +26,30 @@ public class ClientesSystemTest {
 		
 		assertTrue(clientes.existeNaListagem("06788690499", "Daniel Olinto", "danielolinto31@gmail.com"));
 		
-		clientes.remove();
+		clientes.remove("06788690499");
 	}
 	
 	@Test
 	public void deveEditarUmCliente() {
 		clientes.visita();
 		clientes.cadastra("06788690499", "Daniel Olinto", "danielolinto31@gmail.com");
-		clientes.edita("06788690499", "Daniel Olinto", "daniel_olinto@hotmail.com");
+		clientes.edita("06788690499", "Anderson Silva", "andersonolisilva@gmail.com");
 		
-		assertTrue(clientes.existeNaListagem("06788690499", "Daniel Olinto", "daniel_olinto@hotmail.com"));
+		assertTrue(clientes.existeNaListagem("06788690499", "Anderson Silva", "andersonolisilva@gmail.com"));
 		
-		clientes.remove();
+		clientes.remove("06788690499");
 	}
 	
 	@Test
 	public void deveRemoverUmCliente() {
 		clientes.visita();
 		clientes.cadastra("06788690499", "Daniel Olinto", "danielolinto31@gmail.com");
-		clientes.remove();
+		clientes.remove("06788690499");
 		
 		assertFalse(clientes.existeNaListagem("06788690499", "Daniel Olinto", "danielolinto31@gmail.com"));
 	}
-	
-	/*@Test
+	/*
+	@Test
 	public void deveVerificarCpfExistente() {
 		clientes.visita();
 		clientes.cadastra("06788690499", "Daniel Olinto", "danielolinto31@gmail.com");
@@ -57,9 +57,9 @@ public class ClientesSystemTest {
 		
 		assertTrue(clientes.existeCpfDuplicado());
 		
-		clientes.remove();
-	}*/
-	
+		clientes.remove("06788690499");
+	}
+	*/
 	@After
 	public void finaliza() {
 		driver.close();
