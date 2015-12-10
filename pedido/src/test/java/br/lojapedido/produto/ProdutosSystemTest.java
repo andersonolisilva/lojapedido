@@ -29,7 +29,7 @@ public class ProdutosSystemTest {
 		
 		assertTrue(produtos.existeNaListagem("iPhone 6", "2800", "1"));
 		
-		produtos.remove();
+		produtos.remove("iPhone 6");
 	}
 	
 	@Test
@@ -40,18 +40,18 @@ public class ProdutosSystemTest {
 		
 		assertTrue(produtos.existeNaListagem("iPhone 6", "2800", "3"));
 		
-		produtos.remove();
+		produtos.remove("iPhone 6");
 	}
 	
 	@Test
 	public void deveRemoverUmProduto() {
 		produtos.visita();
 		produtos.cadastra("iPhone 6", "2800", "1");
-		produtos.remove();
+		produtos.remove("iPhone 6");
 		
 		assertFalse(produtos.existeNaListagem("iPhone 6", "2800", "1"));
 	}
-	
+	/*
 	@Test
 	public void deveExistirDescricao() {
 		produtos.visita();
@@ -59,6 +59,7 @@ public class ProdutosSystemTest {
 		
 		assertTrue(produtos.existeDescricao());
 	}
+	*/
 	
 	@After
 	public void finaliza() {

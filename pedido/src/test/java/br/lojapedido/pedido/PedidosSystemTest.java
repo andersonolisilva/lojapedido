@@ -20,11 +20,10 @@ public class PedidosSystemTest {
 	
 	@Before
 	public void inicializa() {
-		this.driver = new FirefoxDriver();
-		this.pedidos = new PedidosPage(driver);
-		this.produtos = new ProdutosPage(driver);
+		driver = new FirefoxDriver();
+		pedidos = new PedidosPage(driver);
+		produtos = new ProdutosPage(driver);
 		this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		
 		produtos.visita();
 		produtos.cadastra("iPhone 6", "2800", "1");
 	}
@@ -62,7 +61,7 @@ public class PedidosSystemTest {
 	@After
 	public void finaliza() {
 		produtos.visita();
-		produtos.remove();
+		produtos.remove("iPhone 6");
 		
 		driver.close();
 	}

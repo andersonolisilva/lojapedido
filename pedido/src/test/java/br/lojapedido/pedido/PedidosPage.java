@@ -1,9 +1,10 @@
 package br.lojapedido.pedido;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class PedidosPage {
+import br.pedido.arquitetura.ArquiteturaTest;
+
+public class PedidosPage extends ArquiteturaTest{
 
 	private final WebDriver driver;
 	
@@ -16,12 +17,12 @@ public class PedidosPage {
 	}
 	
 	public NovoPedidoPage novoItem() {
-		driver.findElement(By.id("pedido:NovoItem")).click();
+		clicarEmBotao(driver, "pedido:NovoItem");
 		return new NovoPedidoPage(driver);
 	}
 	
 	public NovoPedidoPage mudaItem() {
-		driver.findElement(By.id("tabelaPedido:tableItemPedido:0:btnSelecionarItem")).click();
+		clicarEmBotao(driver,"tabelaPedido:tableItemPedido:0:btnSelecionarItem");
 		return new NovoPedidoPage(driver);
 	}
 	
@@ -33,8 +34,8 @@ public class PedidosPage {
 	}
 	
 	public void remove() {
-		driver.findElement(By.id("tabelaPedido:tableItemPedido:0:btnExcluirItem")).click();
-		driver.findElement(By.id("btnSim")).click();
+		clicarEmBotao(driver,"tabelaPedido:tableItemPedido:0:btnExcluirItem");
+		clicarEmBotao(driver,"btnSim");
 	}
 	
 }
