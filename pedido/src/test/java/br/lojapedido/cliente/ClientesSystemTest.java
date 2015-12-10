@@ -51,18 +51,7 @@ public class ClientesSystemTest {
 		
 		assertFalse(clientes.existeNaListagem("06788690499", "Daniel Olinto", "danielolinto31@gmail.com"));
 	}
-	/*
-	@Test
-	public void deveVerificarCpfExistente() {
-		clientes.visita();
-		clientes.cadastra("06788690499", "Daniel Olinto", "danielolinto31@gmail.com");
-		clientes.cadastra("06788690499", "Anderson Oliveira", "andersonolisilva@gmail.com");
-		
-		assertTrue(clientes.existeCpfDuplicado());
-		
-		clientes.remove("06788690499");
-	}
-	*/
+
 	@After
 	public void finaliza() {
 		driver.close();
