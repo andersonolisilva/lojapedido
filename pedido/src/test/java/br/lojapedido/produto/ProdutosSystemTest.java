@@ -3,6 +3,8 @@ package br.lojapedido.produto;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +19,7 @@ public class ProdutosSystemTest {
 	public void inicializa() {
 		this.driver = new FirefoxDriver();
 		this.produtos = new ProdutosPage(driver);
+		this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	
 	@Test
@@ -26,7 +29,7 @@ public class ProdutosSystemTest {
 		
 		assertTrue(produtos.existeNaListagem("iPhone 6", "2800", "1"));
 		
-		produtos.remove();
+		produtos.remove("iPhone 6");
 	}
 	
 	@Test
@@ -37,18 +40,18 @@ public class ProdutosSystemTest {
 		
 		assertTrue(produtos.existeNaListagem("iPhone 6", "2800", "3"));
 		
-		produtos.remove();
+		produtos.remove("iPhone 6");
 	}
 	
 	@Test
 	public void deveRemoverUmProduto() {
 		produtos.visita();
 		produtos.cadastra("iPhone 6", "2800", "1");
-		produtos.remove();
+		produtos.remove("iPhone 6");
 		
 		assertFalse(produtos.existeNaListagem("iPhone 6", "2800", "1"));
 	}
-	
+	/*
 	@Test
 	public void deveExistirDescricao() {
 		produtos.visita();
@@ -56,6 +59,7 @@ public class ProdutosSystemTest {
 		
 		assertTrue(produtos.existeDescricao());
 	}
+	*/
 	
 	@After
 	public void finaliza() {

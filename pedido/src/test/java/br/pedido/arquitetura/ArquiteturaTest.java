@@ -18,5 +18,6 @@ public abstract class ArquiteturaTest {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 	}
 }

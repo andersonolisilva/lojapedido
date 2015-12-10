@@ -5,7 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class NovoPedidoPage {
+import br.pedido.arquitetura.ArquiteturaTest;
+
+public class NovoPedidoPage extends ArquiteturaTest{
 	
 	private final WebDriver driver;
 	
@@ -25,7 +27,7 @@ public class NovoPedidoPage {
 		txtValorVenda.clear();
 		txtValorVenda.sendKeys(valorVenda);
 		
-		driver.findElement(By.id("pedido:salvarItem")).click();
+		clicarEmBotao(driver, "pedido:salvarItem");
 	}
 	
 	public void edita(String produto, String quantidade, String valorVenda) {
@@ -40,6 +42,6 @@ public class NovoPedidoPage {
 		txtValorVenda.clear();
 		txtValorVenda.sendKeys(valorVenda);
 		
-		driver.findElement(By.id("pedido:salvarItem")).click();
+		clicarEmBotao(driver,"pedido:salvarItem" );
 	}
 }

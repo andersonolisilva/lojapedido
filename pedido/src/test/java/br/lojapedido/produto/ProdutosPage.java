@@ -1,10 +1,14 @@
 package br.lojapedido.produto;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ProdutosPage {
+import br.pedido.arquitetura.ArquiteturaTest;
+
+public class ProdutosPage extends ArquiteturaTest {
 
 	private final WebDriver driver;
 	
@@ -23,24 +27,10 @@ public class ProdutosPage {
 	}
 	
 	public boolean existeDescricao() {
-		return driver.getPageSource().contains("Campo descrição é obrigatório");
+		return driver.getPageSource().contains("Campo descricaoo e obrigatorio");
 	}
 	
 	public void cadastra(String descricao, String valor, String quantidadeEstoque) {
-		WebElement txtDescricao = driver.findElement(By.id("produto:descricao"));
-		WebElement txtValor = driver.findElement(By.id("produto:valor"));
-		WebElement txtQuantidadeEstoque = driver.findElement(By.id("produto:quantidadeEstoque"));
-		
-		txtDescricao.sendKeys(descricao);
-		txtValor.sendKeys(valor);
-		txtQuantidadeEstoque.sendKeys(quantidadeEstoque);
-		
-		driver.findElement(By.id("produto:btnSalvar")).click();
-	}
-	
-	public void edita(String descricao, String valor, String quantidadeEstoque) {
-		driver.findElement(By.id("tabelaProduto:singleDT:0:btnSelecionar")).click();
-		
 		WebElement txtDescricao = driver.findElement(By.id("produto:descricao"));
 		WebElement txtValor = driver.findElement(By.id("produto:valor"));
 		WebElement txtQuantidadeEstoque = driver.findElement(By.id("produto:quantidadeEstoque"));
@@ -52,12 +42,46 @@ public class ProdutosPage {
 		txtQuantidadeEstoque.clear();
 		txtQuantidadeEstoque.sendKeys(quantidadeEstoque);
 		
-		driver.findElement(By.id("produto:btnSalvar")).click();
+		clicarEmBotao(driver, "produto:btnSalvar");
 	}
 	
-	public void remove() {
-		driver.findElement(By.id("tabelaProduto:singleDT:0:btnExcluir")).click();
-		driver.findElement(By.id("btnSim")).click();
+	public void edita(String descricao, String valor, String quantidadeEstoque) {
+		int linha = indicarListaNaTabela(descricao);
+		clicarEmBotao(driver,"tabelaProduto:singleDT:"+String.valueOf(linha)+":btnSelecionar");
+		
+		WebElement txtDescricao = driver.findElement(By.id("produto:descricao"));
+		WebElement txtValor = driver.findElement(By.id("produto:valor"));
+		WebElement txtQuantidadeEstoque = driver.findElement(By.id("produto:quantidadeEstoque"));
+		
+		txtDescricao.clear();
+		txtDescricao.sendKeys(descricao);
+		txtValor.clear();
+		txtValor.sendKeys(valor);
+		txtQuantidadeEstoque.clear();
+		txtQuantidadeEstoque.sendKeys(quantidadeEstoque);
+
+		clicarEmBotao(driver, "produto:btnSalvar");
+	}
+	
+	public void remove(String descricao) {
+		int linha = indicarListaNaTabela(descricao);
+		clicarEmBotao(driver,"tabelaProduto:singleDT:"+String.valueOf(linha)+":btnExcluir");
+		clicarEmBotao(driver, "btnSim");
+	}
+	
+	public int indicarListaNaTabela(String CPF){
+		int index = 0;
+		WebElement baseTable = driver.findElement(By.className("ui-datatable-tablewrapper"));
+		List<WebElement> tableRows = baseTable.findElements(By.tagName("tr"));
+		for (int i = 1; i < tableRows.size(); i++) {
+			if(tableRows.get(i).getText().contains(CPF)){
+				index = i;
+			}
+		}
+		if(index>0){
+			index = index-1;
+		}
+		return index;
 	}
 	
 }
