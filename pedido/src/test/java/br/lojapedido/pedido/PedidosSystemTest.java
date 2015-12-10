@@ -3,20 +3,30 @@ package br.lojapedido.pedido;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import br.lojapedido.produto.ProdutosPage;
+
 public class PedidosSystemTest {
 
 	private FirefoxDriver driver;
 	private PedidosPage pedidos;
+	private ProdutosPage produtos;
 	
 	@Before
 	public void inicializa() {
 		this.driver = new FirefoxDriver();
 		this.pedidos = new PedidosPage(driver);
+		this.produtos = new ProdutosPage(driver);
+		this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
+		produtos.visita();
+		produtos.cadastra("iPhone 6", "2800", "1");
 	}
 	
 	@Test
@@ -51,6 +61,9 @@ public class PedidosSystemTest {
 	
 	@After
 	public void finaliza() {
+		produtos.visita();
+		produtos.remove();
+		
 		driver.close();
 	}
 

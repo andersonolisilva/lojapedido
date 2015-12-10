@@ -3,6 +3,8 @@ package br.lojapedido.produto;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +19,7 @@ public class ProdutosSystemTest {
 	public void inicializa() {
 		this.driver = new FirefoxDriver();
 		this.produtos = new ProdutosPage(driver);
+		this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	
 	@Test
